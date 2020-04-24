@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:context=".MainActivity"
+              android:orientation="vertical">
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#0F0F0F"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="@string/inicia_sesion"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textColorHighlight="#2E2A2A"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+    <EditText
+            android:id="@+id/ingresa_correo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30dp"
+            android:ems="10"
+            android:hint="@string/correo"
+            android:inputType="textEmailAddress" />
+
+    <EditText
+            android:id="@+id/ingresa_clave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30dp"
+            android:ems="10"
+            android:hint="@string/pass"
+            android:inputType="textPassword" />
+
+    <Button
+            android:id="@+id/iniciar_sesion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="120dp"
+            android:background="#000000"
+            android:onClick="iniciarSesion"
+            android:padding="10dp"
+            android:text="@string/boton_ingresar"
+            android:textColor="#FFFFFF"
+            android:textColorHighlight="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    <TextView
+            android:id="@+id/tv_Registrese"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="110dp"
+            android:gravity="center"
+            android:onClick="irVentanaRegistro"
+            android:text="@string/registrarse"
+            android:textColor="#2E2ECA"
+            android:textSize="20sp" />
+
+
+</LinearLayout>
