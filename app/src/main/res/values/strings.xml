@@ -16,18 +16,4 @@
     <string name="sign_up">"Ingresa tus datos principales"</string>
     <string name="registrarse_genero">Género:</string>
 
-
-    <string name="tituloPerfil">"Crea el perfil de tu mascota"</string>
-
-    <string name="perfil_nombreMascota">"Nombre de la mascota"</string>
-    <string name="perfil_insertarFoto">"Insertar foto"</string>
-    <string name="perfil_caracteristicasEspecificas">"Características específicas"</string>
-
-    <string name="enunciado_especieMascota">"Especie:"</string>
-    <string name="enunciado_generoMascota">"Género:"</string>
-    <string name="enunciado_razaMascota">"Raza:"</string>
-    <string name="enunciado_razaPerro">"Raza(perro):"</string>
-    <string name="enunciado_razaGato">"Raza(gato):"</string>
-    <string name="enunciado_tamañoMascota">"Tamaño:"</string>
-    <string name="enunciado_edadMascota">"Edad:"</string>
 </resources>
