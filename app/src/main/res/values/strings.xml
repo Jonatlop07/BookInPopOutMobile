@@ -1,7 +1,20 @@
 <resources>
     <string name="app_name">Proyecto</string>
+    <string name="correo">"Dirección de E-mail"</string>
+    <string name="clave">"Contraseña"</string>
+    <string name="usu_final">"Usuario normal"</string>
+    <string name="usu_empresarial">"Usuario administrativo"</string>
     <string name="inicia_sesion">"¿Tienes una cuenta? Inicia sesión"</string>
-    <string name="boton_ingresar">"Ingresar"</string>
+    <string name="registrate">"Regístrate"</string>
+    <string name="lb_datos_princ">"Información básica"</string>
+    <string name="identificacion">"Número de identificación"</string>
+    <string name="nombre">"Nombres"</string>
+    <string name="apellido">"Apellidos"</string>
+    <string name="anio">"AA"</string>
+    <string name="mes">"MM"</string>
+    <string name="dia">"DD"</string>
+
+    <string name="boton_continuar">"Continuar"</string>
     <string name="registrarse">"Registrarse"</string>
 
     <string name="registrarse_nombres">"Nombres"</string>
@@ -9,8 +22,6 @@
     <string name="telefono">"Número telefónico"</string>
     <string name="enunciado_genero">Género</string>
 
-    <string name="correo">"Dirección de E-mail"</string>
-    <string name="pass">"Contraseña"</string>
     <string name="pass_confirm">"Confirmar contraseña"</string>
 
     <string name="sign_up">"Ingresa tus datos principales"</string>

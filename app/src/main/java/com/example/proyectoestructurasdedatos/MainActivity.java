@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    private EditText edtDireccion;
     private final String HOST_IP = "";
     private final String CARPETA_SCRIPTS = "archivos_conexion_bd";
 
@@ -22,11 +21,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        edtDireccion = (EditText) findViewById(R.id.direccion);
-
     }
 
-    public void iniciarSesion( View view ) {
+    public void continuar( View view ) {
 
         ejecutarServicio("http://" + this.HOST_IP + "/"+ this.CARPETA_SCRIPTS + "/registrarUsuario.php");
     }
@@ -50,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<String, String>();
-                parametros.put("", edtDireccion.getText().toString()); //El primer argumento indica el
+                //parametros.put("", edtDireccion.getText().toString()); //El primer argumento indica el
                                                                        // nombre del atributo en la tabla
                 //Agregar la cantidad que se reciben de la interfaz
                 return parametros;
