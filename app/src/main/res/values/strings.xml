@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">EstructureDataProject</string>
+
+    <string name="registro1Title">Registro de Usuarios</string>
+    <string name="registro1CuentaTitle">Crear una cuenta</string>
+    <string name="DatoCorreo">Dirección de Correo Electrónico</string>
+    <string name="DatoContra">Contraseña</string>
+    <string name="registro1TipoCuentaTitle">Tipo de Cuenta</string>
+    <string name="registro1NormalRadio">Usuario Normal</string>
+    <string name="registro1AdminRadio">Usuario Administrador</string>
+    <string name="registro1ContinuaButton">Continuar</string>
+
 </resources>
