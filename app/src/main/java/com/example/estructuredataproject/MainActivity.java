@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mAuth = FirebaseAuth.getInstance();
+
         ET_email = (EditText) findViewById(R.id.emailEditText);
         ET_pass = (EditText) findViewById(R.id.passEditText);
         RB_NUser = (RadioButton) findViewById(R.id.NUserRadio);
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         Boolean NUser = RB_NUser.isChecked();
 
         if(NUser){
-            startActivity(new Intent(MainActivity.this, null));
+            startActivity(new Intent(MainActivity.this, NormalUserRegister.class));
         }
         else{
             startActivity(new Intent(MainActivity.this, null));
