@@ -10,4 +10,12 @@
     <string name="registro1AdminRadio">Usuario Administrador</string>
     <string name="registro1ContinuaButton">Continuar</string>
 
+    <string name="DatoNombre">Nombre</string>
+    <string name="DatoApellido">Apellido</string>
+    <string name="DatoFechadeNacimiento">Fecha de Nacimiento</string>
+    <string name="SI">Sí</string>
+    <string name="NO">No</string>
+    <string name="registroDiscapcidad">Discapacidad</string>
+    <string name="registroFinalizar">Finalizar registro</string>
+
 </resources>

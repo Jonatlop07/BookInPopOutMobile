@@ -3,6 +3,7 @@ package com.example.estructuredataproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -25,8 +26,7 @@ public class MainActivity extends AppCompatActivity {
     EditText ET_email, ET_pass;
     RadioButton RB_NUser, RB_AUser;
     Button BT_continuar;
-    String UID;
-    Boolean authError = false;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         RB_AUser = (RadioButton) findViewById(R.id.AUserRadio);
         BT_continuar = (Button) findViewById(R.id.botonContinuar);
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Configurando datos");
         BT_continuar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,23 +52,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getAccountCreated() {
+        progressDialog.show();
         String email = ET_email.getText().toString().trim();
         String password = ET_pass.getText().toString().trim();
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
 
         if (email.isEmpty()) {
             ET_email.setError("Ingresa un correo electrónico");
+            progressDialog.dismiss();
             return;
         } else if (!email.matches(emailPattern)) {
             ET_email.setError("Ingresa un correo electrónico válido");
+            progressDialog.dismiss();
             return;
         }
 
         if (password.isEmpty()) {
             ET_pass.setError("Ingresa una contraseña");
+            progressDialog.dismiss();
             return;
-        } else if (password.length() < 5) {
-            ET_pass.setError("Ingresa una contraseña con al menos 5 carácteres");
+        } else if (password.length() < 6) {
+            ET_pass.setError("Ingresa una contraseña con al menos 6 carácteres");
+            progressDialog.dismiss();
             return;
         }
 
@@ -76,27 +83,23 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             user = mAuth.getCurrentUser();
+
+                            Boolean NUser = RB_NUser.isChecked();
+
+                            progressDialog.dismiss();
+                            if(NUser){
+                                startActivity(new Intent(MainActivity.this, NormalUserRegister.class));
+                            }
+                            else{
+                                startActivity(new Intent(MainActivity.this, null));
+                            }
+
                         } else {
-                            Toast.makeText(MainActivity.this, "Ha ocurrido un error.", Toast.LENGTH_SHORT).show();
-                            authError = true;
+                            Toast.makeText(MainActivity.this, "Ha ocurrido un error." + task.getException().toString(), Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
                         }
                     }
                 });
-
-        if(authError){
-            return;
-        }
-
-        UID = user.getUid();
-
-        Boolean NUser = RB_NUser.isChecked();
-
-        if(NUser){
-            startActivity(new Intent(MainActivity.this, NormalUserRegister.class));
-        }
-        else{
-            startActivity(new Intent(MainActivity.this, null));
-        }
     }
 }
 
