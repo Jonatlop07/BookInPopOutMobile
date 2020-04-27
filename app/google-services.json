@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "630753116060",
+    "firebase_url": "https://dataestructureproject.firebaseio.com",
+    "project_id": "dataestructureproject",
+    "storage_bucket": "dataestructureproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630753116060:android:f786ef05353d058f365259",
+        "android_client_info": {
+          "package_name": "com.example.proyectoestructurasdedatos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "630753116060-smaf6fh6v9651od0rkcg48jonff9p41c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.proyectoestructurasdedatos",
+            "certificate_hash": "496119946f7c1d2ba7ee03e1a1c3c58a3a33995a"
+          }
+        },
+        {
+          "client_id": "630753116060-fm80ef8v5fqbtbj9dkgd40epsl4k7uia.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiJqA3k4zFtMrLfl15JNnfMJ10--dvDyg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "630753116060-fm80ef8v5fqbtbj9dkgd40epsl4k7uia.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

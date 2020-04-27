@@ -1,30 +1,22 @@
 <resources>
-    <string name="app_name">Proyecto</string>
-    <string name="correo">"Dirección de E-mail"</string>
-    <string name="clave">"Contraseña"</string>
-    <string name="usu_final">"Usuario normal"</string>
-    <string name="usu_empresarial">"Usuario administrativo"</string>
-    <string name="inicia_sesion">"¿Tienes una cuenta? Inicia sesión"</string>
-    <string name="registrate">"Regístrate"</string>
-    <string name="lb_datos_princ">"Información básica"</string>
-    <string name="identificacion">"Número de identificación"</string>
-    <string name="nombre">"Nombres"</string>
-    <string name="apellido">"Apellidos"</string>
-    <string name="anio">"AA"</string>
-    <string name="mes">"MM"</string>
-    <string name="dia">"DD"</string>
+    <string name="app_name">ProyectoEstructurasDeDatos</string>
 
-    <string name="boton_continuar">"Continuar"</string>
-    <string name="registrarse">"Registrarse"</string>
+    <string name="registro1Title">Registro de Usuarios</string>
+    <string name="registro1CuentaTitle">Crear una cuenta</string>
+    <string name="DatoCorreo">Dirección de Correo Electrónico</string>
+    <string name="DatoContra">Contraseña</string>
+    <string name="registro1TipoCuentaTitle">Tipo de Cuenta</string>
+    <string name="registro1NormalRadio">Usuario Normal</string>
+    <string name="registro1AdminRadio">Usuario Administrador</string>
+    <string name="registro1ContinuaButton">Continuar</string>
 
-    <string name="registrarse_nombres">"Nombres"</string>
-    <string name="registrarse_apellidos">"Apellidos"</string>
-    <string name="telefono">"Número telefónico"</string>
-    <string name="enunciado_genero">Género</string>
-
-    <string name="pass_confirm">"Confirmar contraseña"</string>
-
-    <string name="sign_up">"Ingresa tus datos principales"</string>
-    <string name="registrarse_genero">Género:</string>
+    <string name="DatoNombre">Nombre</string>
+    <string name="DatoApellido">Apellido</string>
+    <string name="DatoFechadeNacimiento">Fecha de Nacimiento</string>
+    <string name="SI">Sí</string>
+    <string name="NO">No</string>
+    <string name="Documento">Número de documento de identificación</string>
+    <string name="registroDiscapcidad">Discapacidad</string>
+    <string name="registroFinalizar">Finalizar registro</string>
 
 </resources>
