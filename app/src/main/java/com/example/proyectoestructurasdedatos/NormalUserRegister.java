@@ -1,6 +1,5 @@
 package com.example.proyectoestructurasdedatos;
 
-import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -39,7 +38,7 @@ public class NormalUserRegister extends AppCompatActivity {
     final int anio = c.get(Calendar.YEAR);
     int aStamp, mStamp, dStamp;
 
-    private final String HOST_IP = "192.168.1.13";
+    private final String HOST_IP = "192.168.1.15";
     private final String CARPETA_SCRIPTS = "archivos_conexion_bd";
     private final String PUERTO = "80";
     private final String NOMBRE_SCRIPT = "registrarUsuario";

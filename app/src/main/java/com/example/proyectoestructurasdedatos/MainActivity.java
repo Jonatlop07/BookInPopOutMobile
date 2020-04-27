@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
                             }
                             else{
-                                startActivity(new Intent(MainActivity.this, null));
+                                startActivity(new Intent(MainActivity.this, NormalUserQuery.class));
                             }
 
                         } else {

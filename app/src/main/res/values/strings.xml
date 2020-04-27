@@ -19,4 +19,7 @@
     <string name="registroDiscapcidad">Discapacidad</string>
     <string name="registroFinalizar">Finalizar registro</string>
 
+    <string name="ingreseDocumento">Ingrese el número de documento del usuario que desea consultar</string>
+    <string name="informacionUsuario">Información del usuario</string>
+
 </resources>
