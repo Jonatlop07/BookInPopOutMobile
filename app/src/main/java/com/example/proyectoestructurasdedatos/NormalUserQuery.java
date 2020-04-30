@@ -1,8 +1,6 @@
 package com.example.proyectoestructurasdedatos;
 
-import android.content.Context;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,7 +25,7 @@ public class NormalUserQuery extends AppCompatActivity {
 
     RequestQueue colaSolicitud;
 
-    private final String HOST_IP = "";
+    private final String HOST_IP = "192.168.1.15";
     private final String CARPETA_SCRIPTS = "archivos_conexion_bd";
     private final String PUERTO = "80";
     private final String NOMBRE_SCRIPT = "consultarUsuarios";
@@ -68,12 +66,14 @@ public class NormalUserQuery extends AppCompatActivity {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
-                try {
-                    jsonObject = response.getJSONObject(0);
-                    TF_NombreUsuario.setText(jsonObject.getString("nombre"));
-                    TF_ApellidoUsuario.setText(jsonObject.getString("apellido"));
-                    TF_CorreoUsuario.setText(jsonObject.getString("correo"));
 
+                try {
+                    for (int i = 0; i < response.length(); i++) {
+                        jsonObject = response.getJSONObject(i);
+                        TF_NombreUsuario.setText(jsonObject.getString("nombre"));
+                        TF_ApellidoUsuario.setText(jsonObject.getString("apellido"));
+                        TF_CorreoUsuario.setText(jsonObject.getString("correo"));
+                    }
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
