@@ -16,12 +16,14 @@ public class ColaDePrioridad {
     //Primero en salir y último en entrar
     private Nodo primero;
     private Nodo ultimo;
+    private int longitud;
     private boolean organizada;
 
     public ColaDePrioridad() {
         this.primero = null;
         this.ultimo = null;
         this.organizada = false;
+        this.longitud = 0;
     }
 
     public void encolar (Usuario usuario) {
@@ -32,12 +34,15 @@ public class ColaDePrioridad {
             this.ultimo.next = nuevoNodo;
             this.ultimo = nuevoNodo;
         }
+
+        this.longitud++;
     }
 
     public Usuario desencolar () {
         if (!this.estaVacia()) {
             Nodo usuarioAEliminar = this.primero;
             this.primero = this.primero.next;
+            this.longitud--;
             return usuarioAEliminar.usuario;
         } else return null;
     }
@@ -60,7 +65,40 @@ public class ColaDePrioridad {
         }
     }
 
+    public String[] devolverInformaciónUsuarios () {
+        if (this.estaVacia()) {
+            return null;
+        } else {
+            String[] infoUsuarios = new String[this.getLongitud()];
+            Nodo auxiliar = this.primero;
+            for (int i = 0; i < infoUsuarios.length; i++) {
+                infoUsuarios[i] = auxiliar.usuario.toString();
+                auxiliar = auxiliar.next;
+            }
+
+            return infoUsuarios;
+        }
+    }
+
+    public void alterarDistancia() {
+        if (!this.estaVacia()) {
+            Nodo auxiliar = this.primero;
+            for (int i = 0; i < this.getLongitud(); i++) {
+                double deltaDist = Math.random() * 2 * (Math.random() > 0.5 ? 1 : -1);
+                auxiliar.usuario.setDistancia(auxiliar.usuario.getDistancia() + deltaDist);
+            }
+        }
+    }
+
     public boolean estaVacia () {
-        return this.primero == null;
+        return longitud == 0;
+    }
+
+    public boolean estaOrganizada () {
+        return organizada;
+    }
+
+    public int getLongitud() {
+        return longitud;
     }
 }

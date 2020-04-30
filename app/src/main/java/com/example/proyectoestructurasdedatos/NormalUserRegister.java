@@ -61,16 +61,13 @@ public class NormalUserRegister extends AppCompatActivity {
         ET_Documento = (EditText) findViewById(R.id.DocumentoEditText);
         RB_Discapacidad = (RadioButton) findViewById(R.id.DiscaSiRadio);
         BT_Finalizar = (Button) findViewById(R.id.BotonFinalizar);
-
         ET_Nacimiento.setText(anio + "/" + (mes + 1) + "/" + dia);
-
         BT_Finalizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finalizarRegistro();
             }
         });
-
         ET_Nacimiento.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

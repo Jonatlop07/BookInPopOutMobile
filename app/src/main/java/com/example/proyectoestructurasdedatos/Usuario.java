@@ -2,13 +2,19 @@ package com.example.proyectoestructurasdedatos;
 
 public class Usuario {
     private String nombre;
-    private String documento;
+    private long documento;
     private double distancia;
 
-    public Usuario(String nombre, String documento, double distancia) {
+    public Usuario(String nombre, long documento, double distancia) {
         this.nombre = nombre;
         this.documento = documento;
         this.distancia = distancia;
+    }
+
+    public Usuario() {
+        this.nombre = "";
+        this.documento = 0;
+        this.distancia = 0;
     }
 
     public String getNombre() {
@@ -19,11 +25,11 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public String getDocumento() {
+    public long getDocumento() {
         return documento;
     }
 
-    public void setDocumento(String documento) {
+    public void setDocumento(long documento) {
         this.documento = documento;
     }
 
