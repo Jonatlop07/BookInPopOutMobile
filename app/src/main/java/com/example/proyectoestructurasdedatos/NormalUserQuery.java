@@ -30,10 +30,10 @@ public class NormalUserQuery extends AppCompatActivity {
 
     RequestQueue colaSolicitud;
 
-    private final String HOST_IP = "";
+    private final String HOST_IP = "192.168.1.11";
     private final String CARPETA_SCRIPTS = "archivos_conexion_bd";
     private final String PUERTO = "80";
-    private final String SCRIPT_CONSULTA_USUARIO = "consultarUsuarios";
+    private final String SCRIPT_CONSULTA_USUARIO = "consultarUsuario";
     private final String SCRIPT_USUARIOS_COLA = "retornarUsuariosCola";
 
     public static final int CONSULTA_USUARIO = 0;
@@ -57,6 +57,9 @@ public class NormalUserQuery extends AppCompatActivity {
         BT_ActualizarCola = (Button) findViewById(R.id.BotonActualizarCola);
         BT_Desencolar = (Button) findViewById(R.id.BotonDesencolar);
 
+        BT_ActualizarCola.setEnabled(false);
+        BT_Desencolar.setEnabled(false);
+
         TV_ListaUsuariosEncolados = new TextView[10];
         TV_ListaUsuariosEncolados[0] = (TextView) findViewById(R.id.TV_Usuario1);
         TV_ListaUsuariosEncolados[1] = (TextView) findViewById(R.id.TV_Usuario2);
@@ -79,10 +82,13 @@ public class NormalUserQuery extends AppCompatActivity {
         BT_EncolarUsuarios.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "http://" + HOST_IP + ":" + PUERTO + "/" + CARPETA_SCRIPTS
+                String url_2 = "http://" + HOST_IP + ":" + PUERTO + "/" + CARPETA_SCRIPTS
                         + "/"+ SCRIPT_USUARIOS_COLA + ".php";
-                ejecutarPeticionPost(url, 1);
+                ejecutarPeticionPost(url_2, 1);
                 actualizarLista();
+
+                BT_ActualizarCola.setEnabled(true);
+                BT_Desencolar.setEnabled(true);
                 BT_EncolarUsuarios.setEnabled(false);
             }
         });
@@ -90,7 +96,9 @@ public class NormalUserQuery extends AppCompatActivity {
         BT_ActualizarCola.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                colaDePrioridad.organizar();
+                if(!colaDePrioridad.estaOrganizada()) {
+                    colaDePrioridad.organizar();
+                }
                 actualizarLista();
             }
         });
@@ -110,9 +118,9 @@ public class NormalUserQuery extends AppCompatActivity {
         if (documento.isEmpty()) {
             ET_Documento.setError("Ingrese un número de documento");
         } else {
-            String url = "http://" + HOST_IP + ":" + PUERTO + "/" + CARPETA_SCRIPTS
+            String url_1 = "http://" + HOST_IP + ":" + PUERTO + "/" + CARPETA_SCRIPTS
                         + "/"+ SCRIPT_CONSULTA_USUARIO + ".php?id_documento=" + ET_Documento.getText() + "";
-            ejecutarPeticionPost(url, 0);
+            ejecutarPeticionPost(url_1, 0);
         }
     }
 
@@ -120,7 +128,6 @@ public class NormalUserQuery extends AppCompatActivity {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                JSONObject jsonObject = null;
                 try {
                     switch (codigoAccion) {
                         case CONSULTA_USUARIO:
@@ -170,8 +177,7 @@ public class NormalUserQuery extends AppCompatActivity {
                         jsonObject.getDouble("longitud")
                 )
             );
-        this.colaDePrioridad.encolar(usuario);
-
+        colaDePrioridad.encolar(usuario);
     }
 
     private double calcularDistancia(double latitud, double longitud) {
@@ -179,10 +185,13 @@ public class NormalUserQuery extends AppCompatActivity {
     }
 
     private void actualizarLista() {
-        if (!this.colaDePrioridad.estaVacia()) {
-            this.colaDePrioridad.alterarDistancia();
-            this.colaDePrioridad.organizar();
-            String[] infoUsuarios = this.colaDePrioridad.devolverInformaciónUsuarios();
+        if (!colaDePrioridad.estaVacia()) {
+            colaDePrioridad.alterarDistancia();
+            colaDePrioridad.organizar();
+            String[] infoUsuarios = colaDePrioridad.devolverInformacionUsuarios();
+
+            if (infoUsuarios == null) return;
+
             for(int i = 0; i < TV_ListaUsuariosEncolados.length; i++) {
                 if (i < infoUsuarios.length) {
                     TV_ListaUsuariosEncolados[i].setText(infoUsuarios[i]);

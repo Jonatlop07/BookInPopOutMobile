@@ -38,6 +38,12 @@ public class ColaDePrioridad {
         this.longitud++;
     }
 
+    public Usuario consultarPrimero() {
+        if (!this.estaVacia()) {
+            return this.primero.usuario;
+        } else return null;
+    }
+
     public Usuario desencolar () {
         if (!this.estaVacia()) {
             Nodo usuarioAEliminar = this.primero;
@@ -48,8 +54,10 @@ public class ColaDePrioridad {
     }
 
     public void organizar () {
-        if (this.estaVacia() || this.primero == this.ultimo) {
-            this.organizada = false;
+        if (this.estaVacia()) {
+            this.organizada = true;
+        } else if (this.primero == this.ultimo) {
+            this.organizada = true;
         } else {
             Nodo auxiliar = this.primero;
             Nodo anterior = this.primero;
@@ -58,14 +66,16 @@ public class ColaDePrioridad {
                     anterior.next = auxiliar.next;
                     auxiliar.next = auxiliar.next.next;
                     anterior.next.next = auxiliar;
+                } else {
+                    auxiliar = auxiliar.next;
                 }
-                auxiliar = anterior;
+                anterior = auxiliar;
             }
             this.organizada = true;
         }
     }
 
-    public String[] devolverInformaciónUsuarios () {
+    public String[] devolverInformacionUsuarios () {
         if (this.estaVacia()) {
             return null;
         } else {
@@ -86,6 +96,7 @@ public class ColaDePrioridad {
             for (int i = 0; i < this.getLongitud(); i++) {
                 double deltaDist = Math.random() * 2 * (Math.random() > 0.5 ? 1 : -1);
                 auxiliar.usuario.setDistancia(auxiliar.usuario.getDistancia() + deltaDist);
+                auxiliar = auxiliar.next;
             }
         }
     }
