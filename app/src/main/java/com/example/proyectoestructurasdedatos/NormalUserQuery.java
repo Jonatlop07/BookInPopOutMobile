@@ -12,11 +12,18 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class NormalUserQuery extends AppCompatActivity {
+
+    private FirebaseAuth mAuth;
+    FirebaseUser currentUser;
+
     EditText ET_Documento;
     Button BT_ConsultarUsuario;
     TextView TV_NombreUsuario;
@@ -46,6 +53,7 @@ public class NormalUserQuery extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_normal_user_query);
 
+        mAuth = FirebaseAuth.getInstance();
         colaDePrioridad = new ColaDePrioridad();
 
         ET_Documento = (EditText) findViewById(R.id.DocConsultaEditText);
@@ -110,6 +118,13 @@ public class NormalUserQuery extends AppCompatActivity {
                 actualizarLista();
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        currentUser = mAuth.getCurrentUser();
     }
 
     private void validarDocumento() {

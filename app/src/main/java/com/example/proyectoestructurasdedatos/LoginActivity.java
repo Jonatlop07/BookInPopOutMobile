@@ -40,6 +40,9 @@ public class LoginActivity extends AppCompatActivity {
         initButton = (Button) findViewById(R.id.LoginbotonContinuar);
         registerButton = (Button) findViewById(R.id.botonRegistro);
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Iniciando sesión...");
+
         initButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, NormalUserQuery.class));
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
             }
         });
     }
@@ -102,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(LoginActivity.this, "Error al Iniciar sesión." + task.getException(), Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
                         }
 
                     }
