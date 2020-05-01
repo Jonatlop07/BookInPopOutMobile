@@ -3,16 +3,13 @@ package com.example.proyectoestructurasdedatos;
 import android.app.ProgressDialog;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
 import android.content.Intent;
 import android.widget.Button;
 import android.widget.RadioButton;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -27,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_register);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -74,31 +71,9 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            user = mAuth.getCurrentUser();
-
-                            Boolean NUser = RB_NUser.isChecked();
-
-                            progressDialog.dismiss();
-                            if(NUser){
-                                Intent intent = new Intent(MainActivity.this, NormalUserRegister.class);
-                                intent.putExtra("email", email);
-                                startActivity(intent);
-
-                            }
-                            else{
-                                startActivity(new Intent(MainActivity.this, NormalUserQuery.class));
-                            }
-
-                        } else {
-                            Toast.makeText(MainActivity.this, "Ha ocurrido un error." + task.getException().toString(), Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
-                        }
-                    }
-                });
+        Intent intent = new Intent(MainActivity.this, NormalUserRegister.class);
+        intent.putExtra("email", email);
+        intent.putExtra("pass", password);
+        startActivity(intent);
     }
 }

@@ -26,4 +26,7 @@
     <string name="actualizarCola">Actualizar Cola</string>
     <string name="desencolar">Desencolar</string>
 
+    <string name="DatosInicio">Datos de Inicio</string>
+    <string name="InicioSesion">Iniciar Sesión</string>
+    <string name="RegistroSesion">Registrarse</string>
 </resources>

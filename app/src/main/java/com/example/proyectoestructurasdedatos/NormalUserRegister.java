@@ -1,9 +1,12 @@
 package com.example.proyectoestructurasdedatos;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -16,6 +19,9 @@ import android.widget.Toast;
 import com.android.volley.*;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -43,7 +49,7 @@ public class NormalUserRegister extends AppCompatActivity {
     private final String PUERTO = "80";
     private final String NOMBRE_SCRIPT = "registrarUsuario";
     private String URL;
-
+    private ProgressDialog progressDialog;
     private String correo;
 
     @Override
@@ -61,6 +67,10 @@ public class NormalUserRegister extends AppCompatActivity {
         ET_Documento = (EditText) findViewById(R.id.DocumentoEditText);
         RB_Discapacidad = (RadioButton) findViewById(R.id.DiscaSiRadio);
         BT_Finalizar = (Button) findViewById(R.id.BotonFinalizar);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Finalizando registro");
+
         ET_Nacimiento.setText(anio + "/" + (mes + 1) + "/" + dia);
         BT_Finalizar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,12 +88,6 @@ public class NormalUserRegister extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        user = mAuth.getCurrentUser();
-        UID = user.getUid();
-    }
 
     private void closeKeyboard() {
         View view = this.getCurrentFocus();
@@ -112,6 +116,9 @@ public class NormalUserRegister extends AppCompatActivity {
     }
 
     private void finalizarRegistro(){
+
+        String email = getIntent().getStringExtra("email");
+        String password = getIntent().getStringExtra("pass");
         String nombre = ET_Nombre.getText().toString().trim();
         String apellido = ET_Apellido.getText().toString().trim();
         String nacimiento = ET_Nacimiento.getText().toString().trim();
@@ -142,12 +149,24 @@ public class NormalUserRegister extends AppCompatActivity {
             return;
         }
 
-        //Codigo para subir los datos a la base de datos
-        //UID es la Primary Key del Usuario (Dada por Authentication)
-        this.URL = "http://" + HOST_IP + ":" + PUERTO + "/" + CARPETA_SCRIPTS + "/" + NOMBRE_SCRIPT + ".php";
-        registrarUsuario();
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            user = mAuth.getCurrentUser();
+                            UID = user.getUid();
+                            URL = "http://" + HOST_IP + ":" + PUERTO + "/" + CARPETA_SCRIPTS + "/" + NOMBRE_SCRIPT + ".php";
+                            registrarUsuario();
+                            progressDialog.dismiss();
+                            Toast.makeText(NormalUserRegister.this, "Funcionó", Toast.LENGTH_SHORT).show();
 
-        Toast.makeText(this, "Funcionó", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(NormalUserRegister.this, "Ha ocurrido un error." + task.getException().toString(), Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        }
+                    }
+                });
     }
 
     private void registrarUsuario() {
