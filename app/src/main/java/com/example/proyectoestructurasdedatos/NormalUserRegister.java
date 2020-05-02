@@ -159,7 +159,7 @@ public class NormalUserRegister extends AppCompatActivity {
                             URL = "http://" + HOST_IP + ":" + PUERTO + "/" + CARPETA_SCRIPTS + "/" + NOMBRE_SCRIPT + ".php";
                             registrarUsuario();
                             progressDialog.dismiss();
-                            startActivity(new Intent(NormalUserRegister.this, NormalUserQuery.class));
+                            startActivity(new Intent(NormalUserRegister.this, AdminUserQuery.class));
                             Toast.makeText(NormalUserRegister.this, "Funcionó", Toast.LENGTH_SHORT).show();
 
                         } else {

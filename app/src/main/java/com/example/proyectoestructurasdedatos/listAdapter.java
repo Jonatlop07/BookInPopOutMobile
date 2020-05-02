@@ -47,35 +47,44 @@ public class listAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
         View vista;
-        if(datos.size() == 0){
-            if(state == 0){
-                vista = inflater.inflate(R.layout.elem_lista2, null);
-            }
-            else if(state == 1){
-                vista = inflater.inflate(R.layout.elem_lista1, null);
-            }
-            else{
-                vista = inflater.inflate(R.layout.elem_lista0, null);
-            }
+        if(state == 0){
+            vista = inflater.inflate(R.layout.elem_lista2, null);
+        }
+        else if(state == 1){
+            vista = inflater.inflate(R.layout.elem_lista1, null);
+        }
+        else if(state == 2){
+            vista = inflater.inflate(R.layout.elem_lista0, null);
         }
         else{
-            vista = inflater.inflate(R.layout.elem_lista, null);
+            if(datos.size() == 0){
+                vista = inflater.inflate(R.layout.elem_lista0, null);
+            }
+            else{
+                vista = inflater.inflate(R.layout.elem_lista, null);
 
-            TextView Nombre = (TextView) vista.findViewById(R.id.textoPerfil);
-            TextView Documento = (TextView) vista.findViewById(R.id.textoAsign);
-            TextView Pos = (TextView) vista.findViewById(R.id.textoFecha);
+                TextView Nombre = (TextView) vista.findViewById(R.id.textoPerfil);
+                TextView Documento = (TextView) vista.findViewById(R.id.textoAsign);
+                TextView Pos = (TextView) vista.findViewById(R.id.textoFecha);
 
-            Nombre.setText(datos.get(i)[0]);
-            Documento.setText(datos.get(i)[1]);
-            Pos.setText(i);
+                Nombre.setText(datos.get(i)[0]);
+                Documento.setText(datos.get(i)[1]);
+                Pos.setText(i);
+            }
         }
-
         return vista;
     }
 
     @Override
     public int getCount() {
-        return (datos.size() == 0) ? 1 : datos.size();
+        if(state < 0){
+            return (datos.size() == 0) ? 1 : datos.size();
+        }
+        else{
+            return 1;
+        }
+
+
     }
 
     @Override

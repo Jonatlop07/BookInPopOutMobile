@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         user = mAuth.getCurrentUser();
 
         if (user != null) {
-            startActivity(new Intent(this, NormalUserQuery.class));
+            startActivity(new Intent(this, AdminUserQuery.class));
         }
     }
 
@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             user = mAuth.getCurrentUser();
-                            startActivity(new Intent(LoginActivity.this, NormalUserQuery.class));
+                            startActivity(new Intent(LoginActivity.this, AdminUserQuery.class));
                             progressDialog.dismiss();
                         } else {
                             // If sign in fails, display a message to the user.
