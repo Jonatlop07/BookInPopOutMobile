@@ -29,4 +29,12 @@
     <string name="DatosInicio">Datos de Inicio</string>
     <string name="InicioSesion">Iniciar Sesión</string>
     <string name="RegistroSesion">Registrarse</string>
+
+    <string name="NoLista">No hay nadie en la cola</string>
+    <string name="NoListaSuggest">Intenta crear una</string>
+    <string name="ErrorLista">Ha ocurrido un error con la cola</string>
+    <string name="CargandoLista">Cargando cola...</string>
+
+    <string name="DatoDocumento">Documento</string>
+    <string name="PosCola">##</string>
 </resources>
