@@ -1,7 +1,5 @@
 package com.example.proyectoestructurasdedatos;
 
-import org.w3c.dom.Node;
-
 public class ColaDePrioridad {
     private static class Nodo {
         public Usuario usuario;
@@ -59,30 +57,30 @@ public class ColaDePrioridad {
         } else if (this.primero == this.ultimo) {
             this.organizada = true;
         } else {
-            Nodo auxiliar = this.primero;
-            Nodo anterior = this.primero;
-            while (auxiliar.next != null) {
-                if (auxiliar.usuario.getDistancia() > auxiliar.next.usuario.getDistancia()) {
-                    anterior.next = auxiliar.next;
-                    auxiliar.next = auxiliar.next.next;
-                    anterior.next.next = auxiliar;
-                } else {
-                    auxiliar = auxiliar.next;
+            Nodo i, j;
+            for (i = this.primero; i!= null; i = i.next) {
+                for (j = i.next; j != null; j = j.next) {
+                    if (i.usuario.getDistancia() > j.usuario.getDistancia()) {
+                        Usuario temp = i.usuario;
+                        i.usuario = j.usuario;
+                        j.usuario = temp;
+                    }
                 }
-                anterior = auxiliar;
             }
+
             this.organizada = true;
         }
     }
 
-    public String[] devolverInformacionUsuarios () {
+    public String[][] devolverInformacionUsuarios () {
         if (this.estaVacia()) {
             return null;
         } else {
-            String[] infoUsuarios = new String[this.getLongitud()];
+            String[][] infoUsuarios = new String[this.getLongitud()][2];
             Nodo auxiliar = this.primero;
             for (int i = 0; i < infoUsuarios.length; i++) {
-                infoUsuarios[i] = auxiliar.usuario.toString();
+                infoUsuarios[i][0] = auxiliar.usuario.getNombre();
+                infoUsuarios[i][1] = String.valueOf(auxiliar.usuario.getDocumento());
                 auxiliar = auxiliar.next;
             }
 

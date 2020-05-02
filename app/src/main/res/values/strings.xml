@@ -22,6 +22,7 @@
     <string name="ingreseDocumento">Ingrese el número de documento del usuario que desea consultar</string>
     <string name="informacionUsuario">Información del usuario</string>
     <string name="consultarUsuario">Consultar usuario</string>
+    <string name="irGestionColas">Gestionar Colas</string>
     <string name="crearCola">Crear cola</string>
     <string name="actualizarCola">Actualizar Cola</string>
     <string name="desencolar">Desencolar</string>

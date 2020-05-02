@@ -42,6 +42,6 @@ public class Usuario {
     }
 
     public String toString() {
-        return this.nombre + '\t' + this.documento;
+        return this.nombre + ' ' + this.documento;
     }
 }

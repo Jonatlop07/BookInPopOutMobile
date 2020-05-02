@@ -71,31 +71,33 @@
             app:layout_constraintTop_toBottomOf="@+id/LoginemailEditText" />
 
     <Button
-        android:id="@+id/LoginbotonContinuar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="@string/InicioSesion"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LoginpassEditText"
-        app:layout_constraintVertical_bias="0.0" />
+            android:id="@+id/LoginbotonContinuar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="@string/InicioSesion"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LoginpassEditText"
+            app:layout_constraintVertical_bias="0.0" android:background="@android:color/holo_blue_dark"
+            android:textColor="#FFFFFF" android:paddingLeft="5dp" android:paddingRight="5dp"/>
 
     <Button
-        android:id="@+id/botonRegistro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/RegistroSesion"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/LoginbotonContinuar"
-        app:layout_constraintStart_toStartOf="@+id/LoginbotonContinuar"
-        app:layout_constraintTop_toBottomOf="@+id/LoginbotonContinuar"
-        app:layout_constraintVertical_bias="0.0" />
+            android:id="@+id/botonRegistro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/RegistroSesion"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/LoginbotonContinuar"
+            app:layout_constraintStart_toStartOf="@+id/LoginbotonContinuar"
+            app:layout_constraintTop_toBottomOf="@+id/LoginbotonContinuar"
+            app:layout_constraintVertical_bias="0.0" android:background="@android:color/holo_blue_dark"
+            android:textColor="#FFFFFF" android:paddingLeft="5dp" android:paddingRight="5dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

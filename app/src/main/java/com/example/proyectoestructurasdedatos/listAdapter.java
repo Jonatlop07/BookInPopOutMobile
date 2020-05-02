@@ -1,24 +1,12 @@
 package com.example.proyectoestructurasdedatos;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-
-import java.util.ArrayList;
 
 public class listAdapter extends BaseAdapter {
 
@@ -27,10 +15,10 @@ public class listAdapter extends BaseAdapter {
     private ProgressDialog progressDialog;
 
     private Context contexto;
-    private ArrayList<String[]> datos;
+    private String[][] datos;
     private int state = -1;
 
-    public listAdapter(Context contexto, ArrayList<String[]> datos) {
+    public listAdapter(Context contexto, String[][] datos) {
         this.contexto = contexto;
         this.datos = datos;
 
@@ -57,7 +45,9 @@ public class listAdapter extends BaseAdapter {
             vista = inflater.inflate(R.layout.elem_lista0, null);
         }
         else{
-            if(datos.size() == 0){
+            if (datos == null) {
+                vista = inflater.inflate(R.layout.elem_lista0, null);
+            } else if(datos.length == 0){
                 vista = inflater.inflate(R.layout.elem_lista0, null);
             }
             else{
@@ -67,9 +57,9 @@ public class listAdapter extends BaseAdapter {
                 TextView Documento = (TextView) vista.findViewById(R.id.textoAsign);
                 TextView Pos = (TextView) vista.findViewById(R.id.textoFecha);
 
-                Nombre.setText(datos.get(i)[0]);
-                Documento.setText(datos.get(i)[1]);
-                Pos.setText(i);
+                Nombre.setText(datos[i][0]);
+                Documento.setText(datos[i][1]);
+                Pos.setText(String.valueOf(i + 1));
             }
         }
         return vista;
@@ -78,13 +68,11 @@ public class listAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         if(state < 0){
-            return (datos.size() == 0) ? 1 : datos.size();
+            return (datos.length == 0) ? 1 : datos.length;
         }
         else{
             return 1;
         }
-
-
     }
 
     @Override

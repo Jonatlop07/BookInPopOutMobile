@@ -7,180 +7,83 @@
         android:layout_height="match_parent"
         tools:context=".NormalUserQuery">
 
-    <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/ApellidoTextView"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="206dp" android:layout_marginStart="206dp"
-                    app:layout_constraintTop_toBottomOf="@+id/NombreTextView" android:layout_marginTop="16dp"
-                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="205dp"
-                    android:layout_marginRight="205dp"/>
-            <TextView
-                    android:text="@string/informacionUsuario"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content" android:id="@+id/textView8"
-                    android:textStyle="bold"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/BotonConsultarUsuario"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="130dp"
-                    android:layout_marginStart="130dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="131dp" android:layout_marginRight="131dp"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/TV_Usuario9"
-                    app:layout_constraintTop_toBottomOf="@+id/TV_Usuario8" android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="206dp"
-                    android:layout_marginStart="206dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="205dp" android:layout_marginRight="205dp"/>
-            <Button
-                    android:text="@string/actualizarCola"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/BotonActualizarCola"
-                    android:background="@color/common_google_signin_btn_text_dark_focused" android:textColor="#FFFFFF"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/BotonEncolarUsuarios"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="144dp"
-                    android:layout_marginStart="144dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="143dp" android:layout_marginRight="143dp"/>
-            <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:id="@+id/DocConsultaEditText"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="16dp" android:layout_marginRight="16dp"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp" android:layout_marginTop="29dp"
-                    app:layout_constraintTop_toBottomOf="@+id/textView7"/>
-            <Button
-                    android:text="@string/consultarUsuario"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/BotonConsultarUsuario"
-                    android:background="@color/common_google_signin_btn_text_dark_focused" android:textColor="#FFFFFF"
-                    android:layout_marginTop="32dp"
-                    app:layout_constraintTop_toBottomOf="@+id/DocConsultaEditText"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="134dp"
-                    android:layout_marginStart="134dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="133dp" android:layout_marginRight="133dp"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/NombreTextView"
-                    app:layout_constraintTop_toBottomOf="@+id/textView8"
-                    android:layout_marginTop="16dp" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="206dp" android:layout_marginStart="206dp"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/TV_Usuario2"
-                    app:layout_constraintTop_toBottomOf="@+id/TV_Usuario1" android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="206dp"
-                    android:layout_marginStart="206dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="205dp" android:layout_marginRight="205dp"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/TV_Usuario1"
-                    app:layout_constraintTop_toBottomOf="@+id/BotonDesencolar" android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="206dp"
-                    android:layout_marginStart="206dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="205dp" android:layout_marginRight="205dp"/>
-            <TextView
-                    android:text="@string/ingreseDocumento"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView7"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="64dp" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="16dp" android:layout_marginStart="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/TV_Usuario10"
-                    app:layout_constraintTop_toBottomOf="@+id/TV_Usuario9" android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="206dp"
-                    android:layout_marginStart="206dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="205dp" android:layout_marginRight="205dp"/>
-            <Button
-                    android:text="@string/desencolar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/BotonDesencolar"
-                    android:background="@color/common_google_signin_btn_text_dark_focused"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/BotonActualizarCola"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="163dp"
-                    android:layout_marginStart="163dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="159dp" android:layout_marginRight="159dp"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/TV_Usuario3"
-                    app:layout_constraintTop_toBottomOf="@+id/TV_Usuario2" android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="206dp"
-                    android:layout_marginStart="206dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="205dp" android:layout_marginRight="205dp"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/TV_Usuario6"
-                    app:layout_constraintTop_toBottomOf="@+id/TV_Usuario5" android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="206dp"
-                    android:layout_marginStart="206dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="205dp" android:layout_marginRight="205dp"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/CorreoTextView"
-                    app:layout_constraintTop_toBottomOf="@+id/ApellidoTextView"
-                    android:layout_marginTop="16dp" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="206dp" android:layout_marginStart="206dp"
-                    android:layout_marginEnd="205dp" android:layout_marginRight="205dp"
-                    app:layout_constraintEnd_toEndOf="parent"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/TV_Usuario4"
-                    app:layout_constraintTop_toBottomOf="@+id/TV_Usuario3" android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="206dp"
-                    android:layout_marginStart="206dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="205dp" android:layout_marginRight="205dp"/>
-            <Button
-                    android:text="@string/crearCola"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/BotonEncolarUsuarios"
-                    android:background="@color/common_google_signin_btn_text_dark_focused" android:textColor="#FFFFFF"
-                    app:layout_constraintTop_toBottomOf="@+id/CorreoTextView"
-                    android:layout_marginTop="20dp" app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginLeft="162dp" android:layout_marginStart="162dp"
-                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="161dp"
-                    android:layout_marginRight="161dp"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/TV_Usuario7"
-                    app:layout_constraintTop_toBottomOf="@+id/TV_Usuario6" android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="206dp"
-                    android:layout_marginStart="206dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="205dp" android:layout_marginRight="205dp"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/TV_Usuario8"
-                    app:layout_constraintTop_toBottomOf="@+id/TV_Usuario7" android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="206dp"
-                    android:layout_marginStart="206dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="205dp" android:layout_marginRight="205dp"/>
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/TV_Usuario5"
-                    app:layout_constraintTop_toBottomOf="@+id/TV_Usuario4" android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="206dp"
-                    android:layout_marginStart="206dp" app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="205dp" android:layout_marginRight="205dp"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ApellidoTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="206dp" android:layout_marginStart="206dp"
+            app:layout_constraintTop_toBottomOf="@+id/NombreTextView" android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="205dp"
+            android:layout_marginRight="205dp"/>
+    <TextView
+            android:text="@string/informacionUsuario"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" android:id="@+id/textView8"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/BotonConsultarUsuario"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="130dp"
+            android:layout_marginStart="130dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="131dp" android:layout_marginRight="131dp"/>
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/DocConsultaEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp" android:layout_marginRight="16dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp" android:layout_marginTop="29dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView7"/>
+    <Button
+            android:text="@string/consultarUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/BotonConsultarUsuario"
+            android:background="@android:color/holo_blue_dark" android:textColor="#FFFFFF"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@+id/DocConsultaEditText"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="134dp"
+            android:layout_marginStart="134dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="133dp" android:layout_marginRight="133dp" android:paddingLeft="5dp"
+            android:paddingRight="5dp"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/NombreTextView"
+            app:layout_constraintTop_toBottomOf="@+id/textView8"
+            android:layout_marginTop="16dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="206dp" android:layout_marginStart="206dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="205dp"
+            android:layout_marginRight="205dp"/>
+    <TextView
+            android:text="@string/ingreseDocumento"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView7"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="64dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="16dp" android:layout_marginStart="16dp"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/CorreoTextView"
+            app:layout_constraintTop_toBottomOf="@+id/ApellidoTextView"
+            android:layout_marginTop="16dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="206dp" android:layout_marginStart="206dp"
+            android:layout_marginEnd="205dp" android:layout_marginRight="205dp"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <Button
+            android:text="@string/irGestionColas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/IrAdminQuery"
+            app:layout_constraintTop_toBottomOf="@+id/CorreoTextView"
+            android:layout_marginTop="32dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="161dp" android:layout_marginStart="161dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="162dp"
+            android:layout_marginRight="162dp" android:background="@android:color/holo_blue_dark"
+            android:textColor="#FFFFFF" android:paddingLeft="5dp" android:paddingRight="5dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

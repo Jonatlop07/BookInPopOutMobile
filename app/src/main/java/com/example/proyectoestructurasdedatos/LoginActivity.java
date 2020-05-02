@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -100,14 +99,12 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             user = mAuth.getCurrentUser();
-                            startActivity(new Intent(LoginActivity.this, AdminUserQuery.class));
-                            progressDialog.dismiss();
+                            startActivity(new Intent(LoginActivity.this, NormalUserQuery.class));
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(LoginActivity.this, "Error al Iniciar sesión." + task.getException(), Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
                         }
-
+                        progressDialog.dismiss();
                     }
                 });
         }
