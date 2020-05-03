@@ -77,7 +77,7 @@ public class AdminUserQuery extends AppCompatActivity
     }
 
     public void cargarWebService () {
-        jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, URL_CONSULTA_USUARIO, null, this, this);
+        jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, URL_USUARIOS_COLA, null, this, this);
         colaSolicitud.add(jsonArrayRequest);
     }
 
