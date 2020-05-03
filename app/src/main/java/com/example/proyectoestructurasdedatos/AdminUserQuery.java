@@ -131,7 +131,13 @@ public class AdminUserQuery extends AppCompatActivity
 
         listadoOrdenado = colaDePrioridad.devolverInformacionUsuarios();
 
-        listaCola.setAdapter(new listAdapter(this, listadoOrdenado));
+        if(listadoOrdenado == null){
+            listaCola.setAdapter(new listAdapter(this, 2));
+        }
+        else{
+            listaCola.setAdapter(new listAdapter(this, listadoOrdenado));
+        }
+
     }
 
     private void actualizarCola(){
@@ -149,7 +155,12 @@ public class AdminUserQuery extends AppCompatActivity
             listadoOrdenado = colaDePrioridad.devolverInformacionUsuarios();
         }
 
-        listaCola.setAdapter(new listAdapter(this, listadoOrdenado));
+        if(listadoOrdenado == null){
+            listaCola.setAdapter(new listAdapter(this, 2));
+        }
+        else{
+            listaCola.setAdapter(new listAdapter(this, listadoOrdenado));
+        }
     }
 
     private void desencolarCola(){
