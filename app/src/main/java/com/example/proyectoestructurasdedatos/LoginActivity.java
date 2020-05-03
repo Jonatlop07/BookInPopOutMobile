@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /*
     @Override
     public void onStart() {
         super.onStart();
@@ -66,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(this, AdminUserQuery.class));
         }
     }
+    */
 
     private void LogIn() {
         progressDialog.show();
