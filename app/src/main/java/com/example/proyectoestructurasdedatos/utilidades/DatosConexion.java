@@ -1,7 +1,7 @@
 package com.example.proyectoestructurasdedatos.utilidades;
 
 public interface DatosConexion {
-    String HOST_IP = "192.168.1.11";
+    String HOST_IP = "bc8dcf3a.ngrok.io";
     String CARPETA_SCRIPTS = "archivos_conexion_bd";
     String PUERTO = "80";
     String SCRIPT_CONSULTA_USUARIO = "consultarUsuario";
