@@ -1,4 +1,6 @@
-package com.example.proyectoestructurasdedatos;
+package com.example.proyectoestructurasdedatos.estructuras;
+
+import com.example.proyectoestructurasdedatos.Usuario;
 
 public class ColaDePrioridad {
     private static class Nodo {
