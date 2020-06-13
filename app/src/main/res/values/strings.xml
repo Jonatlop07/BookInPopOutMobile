@@ -38,4 +38,8 @@
 
     <string name="DatoDocumento">Documento</string>
     <string name="PosCola">##</string>
+
+    <string name="enterCola">Entrar a la cola</string>
+    <string name="enterCita">Reservar una cita</string>
+    <string name="noFilaPos">Aún no estás en la cola</string>
 </resources>

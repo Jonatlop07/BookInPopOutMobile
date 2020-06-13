@@ -101,6 +101,9 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             user = mAuth.getCurrentUser();
+
+                            askForUserType(user.getUid());
+
                             startActivity(new Intent(LoginActivity.this, NormalUserQuery.class));
                         } else {
                             // If sign in fails, display a message to the user.
@@ -109,6 +112,21 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 });
+        }
+
+        private void askForUserType(String UID){
+            //Mandar la UID para esperar confirmación
+
+
+            //Esto va dentro del OnComplete
+            boolean admin = false; //Dato sacado de la base de datos
+
+            if(admin){
+                startActivity(new Intent(LoginActivity.this, AdminUserQuery.class));
+            }
+            else{
+                startActivity(new Intent(LoginActivity.this, NormalUserQuery.class));
+            }
         }
 
 }

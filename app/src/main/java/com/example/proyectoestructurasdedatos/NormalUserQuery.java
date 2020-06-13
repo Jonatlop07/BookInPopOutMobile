@@ -23,17 +23,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class NormalUserQuery extends AppCompatActivity
-        implements DatosConexion {
+       /* implements DatosConexion*/ {
 
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
 
-    EditText ET_Documento;
-    Button BT_ConsultarUsuario;
-    TextView TV_NombreUsuario;
-    TextView TV_ApellidoUsuario;
-    TextView TV_CorreoUsuario;
-    Button BT_IrGestionColas;
+    Button BT_CancelarCita, BT_ReservarCita, BT_CitasAntes, BT_Perfil;
 
     RequestQueue colaSolicitud;
 
@@ -44,39 +39,61 @@ public class NormalUserQuery extends AppCompatActivity
 
         mAuth = FirebaseAuth.getInstance();
 
-        ET_Documento = (EditText) findViewById(R.id.DocConsultaEditText);
-        BT_ConsultarUsuario = (Button) findViewById(R.id.BotonConsultarUsuario);
-        TV_NombreUsuario = (TextView) findViewById(R.id.NombreTextView);
-        TV_ApellidoUsuario = (TextView) findViewById(R.id.ApellidoTextView);
-        TV_CorreoUsuario = (TextView) findViewById(R.id.CorreoTextView);
-        BT_IrGestionColas = (Button) findViewById(R.id.IrAdminQuery);
+       BT_CancelarCita = (Button) findViewById(R.id.cancelCita);
+       BT_ReservarCita = (Button) findViewById(R.id.AddCita);
+       BT_CitasAntes = (Button) findViewById(R.id.enterCola);
+       BT_Perfil = (Button) findViewById(R.id.enterPerfil);
 
-        BT_ConsultarUsuario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cargarWebService();
-            }
-        });
-        BT_IrGestionColas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(NormalUserQuery.this, AdminUserQuery.class));
-            }
-        });
+       BT_CancelarCita.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+                cancelarCita();
+           }
+       });
+
+       BT_ReservarCita.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+                startActivity(new Intent(NormalUserQuery.this, userReserveDate.class));
+           }
+       });
+
+       BT_CitasAntes.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+
+           }
+       });
+
+       BT_Perfil.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+
+           }
+       });
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         currentUser = mAuth.getCurrentUser();
+
+        //Revisar el archivo para saber si tiene reserva o no
     }
 
+    private void cancelarCita(){
+        //Función para enviar un post al servidor para sacar al usuario de la lista
+
+    }
+
+
+/*
+
     public void cargarWebService () {
-        String documento = ET_Documento.getText().toString();
+        String documento = "";
 
         if (documento.isEmpty()) {
-            ET_Documento.setError("Ingrese un número de documento");
+            //
         } else {
             consultarUsuario();
         }
@@ -89,10 +106,8 @@ public class NormalUserQuery extends AppCompatActivity
             public void onResponse(JSONArray response) {
                 JSONObject jsonObject = null;
                 try {
-                    jsonObject = response.getJSONObject(0);
-                    TV_NombreUsuario.setText(jsonObject.getString("nombre"));
-                    TV_ApellidoUsuario.setText(jsonObject.getString("apellido"));
-                    TV_CorreoUsuario.setText(jsonObject.getString("correo"));
+                    //temp
+                    return;
 
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -108,4 +123,9 @@ public class NormalUserQuery extends AppCompatActivity
         colaSolicitud = Volley.newRequestQueue(this);
         colaSolicitud.add(jsonArrayRequest);
     }
+
+
+
+ */
+
 }
