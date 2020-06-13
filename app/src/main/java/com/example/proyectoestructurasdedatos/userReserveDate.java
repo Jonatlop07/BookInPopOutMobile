@@ -55,9 +55,9 @@ public class userReserveDate extends AppCompatActivity {
                 //Formateo el hora obtenido: antepone el 0 si son menores de 10
                 String AM_PM;
                 if(hourOfDay < 12) {
-                    AM_PM = "a.m.";
+                    AM_PM = "AM";
                 } else {
-                    AM_PM = "p.m.";
+                    AM_PM = "PM";
                 }
 
                 hourOfDay = (hourOfDay == 12 || hourOfDay == 0) ?  12 : hourOfDay % 12;

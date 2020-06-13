@@ -61,7 +61,7 @@ public class NormalUserQuery extends AppCompatActivity
        BT_CitasAntes.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-
+               startActivity(new Intent(NormalUserQuery.this, userCheckDates.class));
            }
        });
 

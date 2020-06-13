@@ -12,7 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".userReserveDate"></activity>
+        <activity android:name=".userCheckDates"></activity>
+        <activity android:name=".userReserveDate" />
         <activity android:name=".AdminUserQuery" />
         <activity android:name=".NormalUserQuery" />
         <activity android:name=".LoginActivity">
