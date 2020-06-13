@@ -76,5 +76,6 @@ public class userCheckDates extends AppCompatActivity {
 
     private void sendConsulta(String uid){
         //Función
+        return;
     }
 }
