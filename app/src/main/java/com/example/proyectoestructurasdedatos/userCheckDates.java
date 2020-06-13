@@ -23,23 +23,20 @@ public class userCheckDates extends AppCompatActivity {
     final int anio = c.get(Calendar.YEAR);
     int aStamp, mStamp, dStamp;
 
+    FirebaseUser currentUser;
+
     EditText etFecha;
     Button BT_Consultar;
     ImageButton BT_Fecha;
-
-    private FirebaseAuth mAuth;
-    FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_check_dates);
 
-        mAuth = FirebaseAuth.getInstance();
-
-        etFecha = (EditText) findViewById(R.id.timeText);
-        BT_Fecha = (ImageButton) findViewById(R.id.hourButton);
-        BT_Consultar = (Button) findViewById(R.id.reservoirButton);
+        etFecha = (EditText) findViewById(R.id.timeText2);
+        BT_Fecha = (ImageButton) findViewById(R.id.dateButton);
+        BT_Consultar = (Button) findViewById(R.id.checkDateButton);
 
         BT_Fecha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,16 +48,13 @@ public class userCheckDates extends AppCompatActivity {
         BT_Consultar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendConsulta();
+                sendConsulta(currentUser.getUid());
             }
         });
+
+        currentUser = (FirebaseUser) this.getIntent().getExtras().get("user");
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        currentUser = mAuth.getCurrentUser();
-    }
 
     private void obtenerFecha(){
         DatePickerDialog recogerFecha = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
@@ -80,7 +74,7 @@ public class userCheckDates extends AppCompatActivity {
         recogerFecha.show();
     }
 
-    private void sendConsulta(){
+    private void sendConsulta(String uid){
         //Función
     }
 }
