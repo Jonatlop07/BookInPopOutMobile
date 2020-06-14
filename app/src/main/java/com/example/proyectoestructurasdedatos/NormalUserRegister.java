@@ -1,8 +1,5 @@
 package com.example.proyectoestructurasdedatos;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -16,18 +13,23 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.android.volley.*;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONObject;
 
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+
+import cz.msebera.android.httpclient.Header;
 
 public class NormalUserRegister extends AppCompatActivity {
 
@@ -44,13 +46,11 @@ public class NormalUserRegister extends AppCompatActivity {
     final int anio = c.get(Calendar.YEAR);
     int aStamp, mStamp, dStamp;
 
-    private final String HOST_IP = "192.168.1.15";
-    private final String CARPETA_SCRIPTS = "archivos_conexion_bd";
-    private final String PUERTO = "80";
-    private final String NOMBRE_SCRIPT = "registrarUsuario";
-    private String URL;
     private ProgressDialog progressDialog;
     private String correo;
+
+    AsyncHttpClient client;
+    String URL = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,7 +156,6 @@ public class NormalUserRegister extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             user = mAuth.getCurrentUser();
                             UID = user.getUid();
-                            URL = "http://" + HOST_IP + ":" + PUERTO + "/" + CARPETA_SCRIPTS + "/" + NOMBRE_SCRIPT + ".php";
                             registrarUsuario();
 
                         } else {
@@ -168,40 +167,28 @@ public class NormalUserRegister extends AppCompatActivity {
     }
 
     private void registrarUsuario() {
-        StringRequest solicitud = new StringRequest(Request.Method.POST, this.URL, new Response.Listener<String>() {
+        RequestParams params = new RequestParams();
+        params.put("id_usuario", UID);
+        params.put("id_documento", ET_Documento.getText().toString().trim());
+        params.put("nombre", ET_Nombre.getText().toString().trim());
+        params.put("apellido", ET_Apellido.getText().toString().trim());
+        params.put("fecha_nacimiento", ET_Nacimiento.getText().toString().trim());
+        params.put("discapacitado", RB_Discapacidad.isChecked());
+        params.put("correo", correo);
+        client.post(URL, params, new JsonHttpResponseHandler() {
             @Override
-            public void onResponse(String response) {
-                progressDialog.dismiss();
-                startActivity(new Intent(NormalUserRegister.this, AdminUserQuery.class));
-                Toast.makeText(getApplicationContext(), "OPERACION EXITOSA", Toast.LENGTH_SHORT).show();
+            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                startActivity(new Intent(NormalUserRegister.this, NormalUserQuery.class));
+                finish();
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                user.delete();
+                Toast.makeText(getApplicationContext(), "Problema al realizar el registro. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
             }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> parametros = new HashMap<String, String>();
-                parametros.put("id_usuario", UID);
-                parametros.put("id_documento", ET_Documento.getText().toString().trim());
-                parametros.put("nombre", ET_Nombre.getText().toString().trim());
-                parametros.put("apellido", ET_Apellido.getText().toString().trim());
-                parametros.put("fecha_nacimiento", ET_Nacimiento.getText().toString().trim());
-                parametros.put("correo", correo);
-
-                if (RB_Discapacidad.isChecked()) {
-                    parametros.put("discapacitado", "True");
-                } else {
-                    parametros.put("discapacitado", "False");
-                }
-
-                return parametros;
-            }
-        };
-
-        RequestQueue colaSolicitud = Volley.newRequestQueue(this);
-        colaSolicitud.add(solicitud);
+        });
     }
 }

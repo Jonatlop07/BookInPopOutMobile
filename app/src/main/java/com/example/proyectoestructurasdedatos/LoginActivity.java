@@ -16,6 +16,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -26,6 +34,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText emailText, passText;
     Button initButton, registerButton;
 
+    AsyncHttpClient client;
+    final String URL = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
+        client = new AsyncHttpClient();
 
         emailText = (EditText) findViewById(R.id.LoginemailEditText);
         passText = (EditText) findViewById(R.id.LoginpassEditText);
@@ -52,22 +63,21 @@ public class LoginActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
     }
 
-    /*
+
     @Override
     public void onStart() {
         super.onStart();
         user = mAuth.getCurrentUser();
 
         if (user != null) {
-            startActivity(new Intent(this, AdminUserQuery.class));
+            verifyUserType(user.getUid());
         }
     }
-    */
 
     private void LogIn() {
         progressDialog.show();
@@ -101,10 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             user = mAuth.getCurrentUser();
-
-                            askForUserType(user.getUid());
-
-                            startActivity(new Intent(LoginActivity.this, NormalUserQuery.class));
+                            verifyUserType(user.getUid());
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(LoginActivity.this, "Error al Iniciar sesión." + task.getException(), Toast.LENGTH_SHORT).show();
@@ -114,18 +121,31 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void askForUserType(String UID) {
-        //Mandar la UID para esperar confirmación
+    private void verifyUserType(final String UID) {
+        RequestParams params = new RequestParams();
+        params.put(UID, "id");
+        client.post(URL, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    boolean esEmpresarial = response.getBoolean("empresarial");
+                    if (esEmpresarial) {
+                        startActivity(new Intent(LoginActivity.this, AdminUserQuery.class));
+                    } else {
+                        startActivity(new Intent(LoginActivity.this, NormalUserQuery.class));
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), "Problema al intentar iniciar sesión. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
+                }
+            }
 
-
-        //Esto va dentro del OnComplete
-        boolean admin = false; //Dato sacado de la base de datos
-
-        if (admin) {
-            startActivity(new Intent(LoginActivity.this, AdminUserQuery.class));
-        } else {
-            startActivity(new Intent(LoginActivity.this, NormalUserQuery.class));
-        }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                Toast.makeText(getApplicationContext(), "Problema al intentar iniciar sesión. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

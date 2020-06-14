@@ -1,7 +1,5 @@
 package com.example.proyectoestructurasdedatos;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -9,11 +7,22 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseUser;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
+
+import cz.msebera.android.httpclient.Header;
 
 public class userCheckDates extends AppCompatActivity {
 
@@ -24,6 +33,8 @@ public class userCheckDates extends AppCompatActivity {
     int aStamp, mStamp, dStamp;
 
     FirebaseUser currentUser;
+    final String URL = "";
+    AsyncHttpClient client;
 
     EditText etFecha;
     Button BT_Consultar;
@@ -75,7 +86,29 @@ public class userCheckDates extends AppCompatActivity {
     }
 
     private void sendConsulta(String uid) {
-        //Función
-        return;
+        RequestParams params = new RequestParams();
+        params.put("id", uid);
+        params.put("fecha", etFecha.getText());
+        client.post(URL, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject attentionRegister = response.getJSONObject(i);
+                        //Aquí iría el código para llenar el componente que muestra el registro de citas
+                        // String hora = attentionRegister.getString("hora");
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                Toast.makeText(getApplicationContext(), "Problema al realizar el registro. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

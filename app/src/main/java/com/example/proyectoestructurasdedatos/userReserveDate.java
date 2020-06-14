@@ -1,7 +1,5 @@
 package com.example.proyectoestructurasdedatos;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -9,8 +7,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseUser;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
+
+import cz.msebera.android.httpclient.Header;
 
 public class userReserveDate extends AppCompatActivity {
 
@@ -22,12 +33,18 @@ public class userReserveDate extends AppCompatActivity {
     EditText etHora;
     Button BT_Reservar;
     ImageButton BT_Hora;
+    FirebaseUser user;
 
+    String URL = "";
+    AsyncHttpClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_reserve_date);
+
+        client = new AsyncHttpClient();
+        user = (FirebaseUser) getIntent().getExtras().get("user");
 
         etHora = (EditText) findViewById(R.id.timeText);
         BT_Hora = (ImageButton) findViewById(R.id.hourButton);
@@ -43,7 +60,7 @@ public class userReserveDate extends AppCompatActivity {
         BT_Reservar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendReservacion();
+                solicitarEncolamiento();
             }
         });
     }
@@ -75,8 +92,37 @@ public class userReserveDate extends AppCompatActivity {
         recogerFecha.show();
     }
 
-    private void sendReservacion() {
-        //Función para enviar los datos de la reservación
 
+    private void solicitarEncolamiento() {
+        //Aquí se debe tomar la hora y el minuto del tiempo seleccionado
+        int hora = 0, minuto = 0;
+        RequestParams params = new RequestParams();
+        params.put("id", user.getUid());
+        params.put("hora", hora);
+        params.put("minuto", minuto);
+        client.post(URL, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    boolean encolado = response.getBoolean("encolado");
+                    if (encolado) {
+                        int horaCita = response.getInt("hora");
+                        int minutoCita = response.getInt("minuto");
+                        //Aquí va el código para guardar la hora en el archivo
+                    } else {
+                        Toast.makeText(getApplicationContext(), "La hora ingresada se encuentra entre una franja de horario ocupada. Por favor ingrese otra hora o intente de nuevo más tarde.", Toast.LENGTH_LONG).show();
+                    }
+                } catch (JSONException e) {
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+                Toast.makeText(getApplicationContext(), "Error al procesar la solicitud. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
