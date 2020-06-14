@@ -112,21 +112,20 @@ public class LoginActivity extends AppCompatActivity {
                         progressDialog.dismiss();
                     }
                 });
+    }
+
+    private void askForUserType(String UID) {
+        //Mandar la UID para esperar confirmación
+
+
+        //Esto va dentro del OnComplete
+        boolean admin = false; //Dato sacado de la base de datos
+
+        if (admin) {
+            startActivity(new Intent(LoginActivity.this, AdminUserQuery.class));
+        } else {
+            startActivity(new Intent(LoginActivity.this, NormalUserQuery.class));
         }
-
-        private void askForUserType(String UID){
-            //Mandar la UID para esperar confirmación
-
-
-            //Esto va dentro del OnComplete
-            boolean admin = false; //Dato sacado de la base de datos
-
-            if(admin){
-                startActivity(new Intent(LoginActivity.this, AdminUserQuery.class));
-            }
-            else{
-                startActivity(new Intent(LoginActivity.this, NormalUserQuery.class));
-            }
-        }
+    }
 
 }

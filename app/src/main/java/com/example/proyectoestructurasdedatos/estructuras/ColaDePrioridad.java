@@ -26,7 +26,7 @@ public class ColaDePrioridad {
         this.longitud = 0;
     }
 
-    public void encolar (Usuario usuario) {
+    public void encolar(Usuario usuario) {
         Nodo nuevoNodo = new Nodo(usuario);
         if (this.estaVacia()) {
             this.primero = this.ultimo = nuevoNodo;
@@ -44,7 +44,7 @@ public class ColaDePrioridad {
         } else return null;
     }
 
-    public Usuario desencolar () {
+    public Usuario desencolar() {
         if (!this.estaVacia()) {
             Nodo usuarioAEliminar = this.primero;
             this.primero = this.primero.next;
@@ -53,14 +53,14 @@ public class ColaDePrioridad {
         } else return null;
     }
 
-    public void organizar () {
+    public void organizar() {
         if (this.estaVacia()) {
             this.organizada = true;
         } else if (this.primero == this.ultimo) {
             this.organizada = true;
         } else {
             Nodo i, j;
-            for (i = this.primero; i!= null; i = i.next) {
+            for (i = this.primero; i != null; i = i.next) {
                 for (j = i.next; j != null; j = j.next) {
                     if (i.usuario.getDistancia() > j.usuario.getDistancia()) {
                         Usuario temp = i.usuario;
@@ -74,7 +74,7 @@ public class ColaDePrioridad {
         }
     }
 
-    public String[][] devolverInformacionUsuarios () {
+    public String[][] devolverInformacionUsuarios() {
         if (this.estaVacia()) {
             return null;
         } else {
@@ -101,11 +101,11 @@ public class ColaDePrioridad {
         }
     }
 
-    public boolean estaVacia () {
+    public boolean estaVacia() {
         return longitud == 0;
     }
 
-    public boolean estaOrganizada () {
+    public boolean estaOrganizada() {
         return organizada;
     }
 

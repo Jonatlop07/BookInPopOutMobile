@@ -9,6 +9,7 @@ public interface DatosConexion {
     String URL_CONSULTA_USUARIO = "http://" + HOST_IP + ":" + PUERTO + "/" + CARPETA_SCRIPTS
             + "/" + SCRIPT_CONSULTA_USUARIO + ".php?id_documento=";
     String URL_USUARIOS_COLA = "http://" + HOST_IP + ":" + PUERTO + "/" + CARPETA_SCRIPTS
-            + "/"+ SCRIPT_USUARIOS_COLA + ".php";
+            + "/" + SCRIPT_USUARIOS_COLA + ".php";
+
     void cargarWebService();
 }

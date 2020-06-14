@@ -30,7 +30,7 @@ public class UserPerfil extends AppCompatActivity {
         loadProfile(user.getUid());
     }
 
-    private void loadProfile(String UID){
+    private void loadProfile(String UID) {
         //Función que toma la ID para cargar los datos
     }
 }

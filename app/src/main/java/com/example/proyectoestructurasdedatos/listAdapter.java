@@ -35,22 +35,18 @@ public class listAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
         View vista;
-        if(state == 0){
+        if (state == 0) {
             vista = inflater.inflate(R.layout.elem_lista2, null);
-        }
-        else if(state == 1){
+        } else if (state == 1) {
             vista = inflater.inflate(R.layout.elem_lista1, null);
-        }
-        else if(state == 2){
+        } else if (state == 2) {
             vista = inflater.inflate(R.layout.elem_lista0, null);
-        }
-        else{
+        } else {
             if (datos == null) {
                 vista = inflater.inflate(R.layout.elem_lista0, null);
-            } else if(datos.length == 0){
+            } else if (datos.length == 0) {
                 vista = inflater.inflate(R.layout.elem_lista0, null);
-            }
-            else{
+            } else {
                 vista = inflater.inflate(R.layout.elem_lista, null);
 
                 TextView Nombre = (TextView) vista.findViewById(R.id.textoPerfil);
@@ -67,10 +63,9 @@ public class listAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if(state < 0){
+        if (state < 0) {
             return (datos.length == 0) ? 1 : datos.length;
-        }
-        else{
+        } else {
             return 1;
         }
     }

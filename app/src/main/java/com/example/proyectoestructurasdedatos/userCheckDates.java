@@ -56,25 +56,25 @@ public class userCheckDates extends AppCompatActivity {
     }
 
 
-    private void obtenerFecha(){
+    private void obtenerFecha() {
         DatePickerDialog recogerFecha = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 final int mesActual = month + 1;
-                String diaFormateado = (dayOfMonth < 10) ? "0" + String.valueOf(dayOfMonth):String.valueOf(dayOfMonth);
-                String mesFormateado = (mesActual < 10) ? "0" + String.valueOf(mesActual):String.valueOf(mesActual);
+                String diaFormateado = (dayOfMonth < 10) ? "0" + String.valueOf(dayOfMonth) : String.valueOf(dayOfMonth);
+                String mesFormateado = (mesActual < 10) ? "0" + String.valueOf(mesActual) : String.valueOf(mesActual);
 
                 aStamp = year;
                 mStamp = month;
                 dStamp = dayOfMonth;
                 etFecha.setText(year + "/" + mesFormateado + "/" + diaFormateado);
             }
-        },anio, mes, dia);
+        }, anio, mes, dia);
         recogerFecha.getDatePicker().setMaxDate(System.currentTimeMillis());
         recogerFecha.show();
     }
 
-    private void sendConsulta(String uid){
+    private void sendConsulta(String uid) {
         //Función
         return;
     }

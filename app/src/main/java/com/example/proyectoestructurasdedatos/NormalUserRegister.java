@@ -97,25 +97,25 @@ public class NormalUserRegister extends AppCompatActivity {
         }
     }
 
-    private void obtenerFecha(){
+    private void obtenerFecha() {
         DatePickerDialog recogerFecha = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 final int mesActual = month + 1;
-                String diaFormateado = (dayOfMonth < 10) ? "0" + String.valueOf(dayOfMonth):String.valueOf(dayOfMonth);
-                String mesFormateado = (mesActual < 10) ? "0" + String.valueOf(mesActual):String.valueOf(mesActual);
+                String diaFormateado = (dayOfMonth < 10) ? "0" + String.valueOf(dayOfMonth) : String.valueOf(dayOfMonth);
+                String mesFormateado = (mesActual < 10) ? "0" + String.valueOf(mesActual) : String.valueOf(mesActual);
 
                 aStamp = year;
                 mStamp = month;
                 dStamp = dayOfMonth;
                 ET_Nacimiento.setText(year + "/" + mesFormateado + "/" + diaFormateado);
             }
-        },anio, mes, dia);
+        }, anio, mes, dia);
         recogerFecha.getDatePicker().setMaxDate(System.currentTimeMillis());
         recogerFecha.show();
     }
 
-    private void finalizarRegistro(){
+    private void finalizarRegistro() {
 
         String email = getIntent().getStringExtra("email");
         String password = getIntent().getStringExtra("pass");
@@ -126,25 +126,25 @@ public class NormalUserRegister extends AppCompatActivity {
         Boolean discapacitado = RB_Discapacidad.isChecked();
         String datePattern = "[0-9][0-9][0-9][0-9]/[0-9][0-9]/[0-9][0-9]";
 
-        if(nombre.isEmpty()){
+        if (nombre.isEmpty()) {
             ET_Nombre.setError("Ingrese un nombre");
             return;
         }
 
-        if(apellido.isEmpty()){
+        if (apellido.isEmpty()) {
             ET_Apellido.setError("Ingrese un apellido");
             return;
         }
 
-        if(nacimiento.isEmpty()){
+        if (nacimiento.isEmpty()) {
             ET_Apellido.setError("Ingrese una Fecha de Nacimiento");
             return;
-        } else if(!nacimiento.matches(datePattern)){
+        } else if (!nacimiento.matches(datePattern)) {
             ET_Nacimiento.setError("Ingrese una Fecha de Nacimiento válida");
             return;
         }
 
-        if(documento.isEmpty()){
+        if (documento.isEmpty()) {
             ET_Apellido.setError("Ingrese un Número de Identificación");
             return;
         }
@@ -180,15 +180,15 @@ public class NormalUserRegister extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(), error.toString(), Toast.LENGTH_SHORT).show();
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<String, String>();
                 parametros.put("id_usuario", UID);
-                parametros.put("id_documento", ET_Documento.getText().toString(). trim());
+                parametros.put("id_documento", ET_Documento.getText().toString().trim());
                 parametros.put("nombre", ET_Nombre.getText().toString().trim());
                 parametros.put("apellido", ET_Apellido.getText().toString().trim());
-                parametros.put("fecha_nacimiento", ET_Nacimiento.getText().toString(). trim());
+                parametros.put("fecha_nacimiento", ET_Nacimiento.getText().toString().trim());
                 parametros.put("correo", correo);
 
                 if (RB_Discapacidad.isChecked()) {

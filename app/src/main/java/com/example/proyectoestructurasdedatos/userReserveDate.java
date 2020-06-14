@@ -48,23 +48,23 @@ public class userReserveDate extends AppCompatActivity {
         });
     }
 
-    private void obtenerHora(){
+    private void obtenerHora() {
         TimePickerDialog recogerFecha = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 //Formateo el hora obtenido: antepone el 0 si son menores de 10
                 String AM_PM;
-                if(hourOfDay < 12) {
+                if (hourOfDay < 12) {
                     AM_PM = "AM";
                 } else {
                     AM_PM = "PM";
                 }
 
-                hourOfDay = (hourOfDay == 12 || hourOfDay == 0) ?  12 : hourOfDay % 12;
+                hourOfDay = (hourOfDay == 12 || hourOfDay == 0) ? 12 : hourOfDay % 12;
 
-                String horaFormateada =  (hourOfDay < 10)? String.valueOf(CERO + hourOfDay) : String.valueOf(hourOfDay);
+                String horaFormateada = (hourOfDay < 10) ? String.valueOf(CERO + hourOfDay) : String.valueOf(hourOfDay);
                 //Formateo el minuto obtenido: antepone el 0 si son menores de 10
-                String minutoFormateado = (minute < 10)? String.valueOf(CERO + minute):String.valueOf(minute);
+                String minutoFormateado = (minute < 10) ? String.valueOf(CERO + minute) : String.valueOf(minute);
                 //Obtengo el valor a.m. o p.m., dependiendo de la selección del usuario
 
 
@@ -75,7 +75,7 @@ public class userReserveDate extends AppCompatActivity {
         recogerFecha.show();
     }
 
-    private void sendReservacion(){
+    private void sendReservacion() {
         //Función para enviar los datos de la reservación
 
     }
