@@ -1,5 +1,6 @@
 package com.example.proyectoestructurasdedatos;
 
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,10 +24,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class AdminUserQuery extends AppCompatActivity
-        implements Response.Listener<JSONArray>, Response.ErrorListener, DatosConexion {
+        /* implements  Response.Listener<JSONArray>, Response.ErrorListener, DatosConexion */ {
 
-    Button crearCola, actualizarCola, desencolarBTN;
+    Button BT_regUser, BT_actualizarCola;
     ListView listaCola;
+    ImageButton BT_Config;
 
     String[][] listadoOrdenado;
 
@@ -44,24 +46,23 @@ public class AdminUserQuery extends AppCompatActivity
 
         colaSolicitud = Volley.newRequestQueue(this);
 
-        crearCola = (Button) findViewById(R.id.botonCrearCola);
-        actualizarCola = (Button) findViewById(R.id.BotonActualizarLista);
-        desencolarBTN = (Button) findViewById(R.id.BTNDesencolar);
+        BT_regUser = (Button) findViewById(R.id.adminRegisUser);
+        BT_actualizarCola = (Button) findViewById(R.id.adminActuLista);
+        BT_Config = (ImageButton) findViewById(R.id.configCola);
         listaCola = (ListView) findViewById(R.id.listaColas);
 
         listaCola.setAdapter(new listAdapter(this, 2));
 
-        cargarWebService();
+        // cargarWebService();
 
-        crearCola.setOnClickListener(new View.OnClickListener() {
+        BT_regUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                crearCola();
-                crearCola.setEnabled(false);
+                //Ir a la actividad de Registrar Usuario
             }
         });
 
-        actualizarCola.setOnClickListener(new View.OnClickListener() {
+        BT_actualizarCola.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (colaDePrioridad.getLongitud() > 1) {
@@ -70,15 +71,39 @@ public class AdminUserQuery extends AppCompatActivity
             }
         });
 
-        desencolarBTN.setOnClickListener(new View.OnClickListener() {
+        BT_Config.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!colaDePrioridad.estaVacia()) {
-                    desencolarCola();
+                    //Ir a la actividad de Configuración de la cola
                 }
             }
         });
     }
+
+    private void actualizarCola() {
+        listadoOrdenado = new String[colaDePrioridad.getLongitud()][2];
+
+        //Interfaz de cargando lista
+        listaCola.setAdapter(new listAdapter(this, 0));
+
+        //Interfaz en caso que ocurra un error
+        // listaCola.setAdapter(new listAdapter(this,1));
+
+        if (!colaDePrioridad.estaVacia()) {
+            colaDePrioridad.alterarDistancia();
+            colaDePrioridad.organizar();
+            listadoOrdenado = colaDePrioridad.devolverInformacionUsuarios();
+        }
+
+        if (listadoOrdenado == null) {
+            listaCola.setAdapter(new listAdapter(this, 2));
+        } else {
+            listaCola.setAdapter(new listAdapter(this, listadoOrdenado));
+        }
+    }
+
+    /*
 
     public void cargarWebService() {
         jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, URL_USUARIOS_COLA, null, this, this);
@@ -143,30 +168,12 @@ public class AdminUserQuery extends AppCompatActivity
 
     }
 
-    private void actualizarCola() {
-        listadoOrdenado = new String[colaDePrioridad.getLongitud()][2];
 
-        //Interfaz de cargando lista
-        listaCola.setAdapter(new listAdapter(this, 0));
-
-        //Interfaz en caso que ocurra un error
-        // listaCola.setAdapter(new listAdapter(this,1));
-
-        if (!colaDePrioridad.estaVacia()) {
-            colaDePrioridad.alterarDistancia();
-            colaDePrioridad.organizar();
-            listadoOrdenado = colaDePrioridad.devolverInformacionUsuarios();
-        }
-
-        if (listadoOrdenado == null) {
-            listaCola.setAdapter(new listAdapter(this, 2));
-        } else {
-            listaCola.setAdapter(new listAdapter(this, listadoOrdenado));
-        }
-    }
 
     private void desencolarCola() {
         colaDePrioridad.desencolar();
         actualizarCola();
     }
+
+     */
 }
