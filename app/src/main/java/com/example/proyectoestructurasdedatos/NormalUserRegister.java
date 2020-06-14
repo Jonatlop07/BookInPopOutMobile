@@ -158,9 +158,6 @@ public class NormalUserRegister extends AppCompatActivity {
                             UID = user.getUid();
                             URL = "http://" + HOST_IP + ":" + PUERTO + "/" + CARPETA_SCRIPTS + "/" + NOMBRE_SCRIPT + ".php";
                             registrarUsuario();
-                            progressDialog.dismiss();
-                            startActivity(new Intent(NormalUserRegister.this, AdminUserQuery.class));
-                            Toast.makeText(NormalUserRegister.this, "Funcionó", Toast.LENGTH_SHORT).show();
 
                         } else {
                             Toast.makeText(NormalUserRegister.this, "Ha ocurrido un error." + task.getException().toString(), Toast.LENGTH_SHORT).show();
@@ -174,6 +171,8 @@ public class NormalUserRegister extends AppCompatActivity {
         StringRequest solicitud = new StringRequest(Request.Method.POST, this.URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                progressDialog.dismiss();
+                startActivity(new Intent(NormalUserRegister.this, AdminUserQuery.class));
                 Toast.makeText(getApplicationContext(), "OPERACION EXITOSA", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
