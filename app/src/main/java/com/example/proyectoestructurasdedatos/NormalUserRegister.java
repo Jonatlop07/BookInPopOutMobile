@@ -16,12 +16,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.proyectoestructurasdedatos.utilidades.DatosConexion;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -31,14 +33,13 @@ import java.util.Calendar;
 
 import cz.msebera.android.httpclient.Header;
 
-public class NormalUserRegister extends AppCompatActivity {
+public class NormalUserRegister extends AppCompatActivity implements DatosConexion {
 
     EditText ET_Nombre, ET_Apellido, ET_Nacimiento, ET_Documento;
     RadioButton RB_Discapacidad;
     Button BT_Finalizar;
     private FirebaseAuth mAuth;
     FirebaseUser user;
-    String UID;
 
     public final Calendar c = Calendar.getInstance();
     final int mes = c.get(Calendar.MONTH);
@@ -50,7 +51,6 @@ public class NormalUserRegister extends AppCompatActivity {
     private String correo;
 
     AsyncHttpClient client;
-    String URL = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,9 +155,29 @@ public class NormalUserRegister extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             user = mAuth.getCurrentUser();
-                            UID = user.getUid();
-                            registrarUsuario();
+                            RequestParams params = new RequestParams();
+                            params.put("id_usuario", user.getUid());
+                            params.put("id_documento", ET_Documento.getText().toString().trim());
+                            params.put("nombre", ET_Nombre.getText().toString().trim());
+                            params.put("apellido", ET_Apellido.getText().toString().trim());
+                            params.put("fecha_nacimiento", ET_Nacimiento.getText().toString().trim());
+                            params.put("discapacitado", RB_Discapacidad.isChecked());
+                            params.put("correo", correo);
+                            client = new AsyncHttpClient();
+                            client.post(REGISTRO_USUARIO_NORMAL, params, new AsyncHttpResponseHandler() {
+                                @Override
+                                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                                    startActivity(new Intent(NormalUserRegister.this, NormalUserQuery.class));
+                                    finish();
+                                }
 
+                                @Override
+                                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                                    user.delete();
+
+                                    Toast.makeText(getApplicationContext(), "Problema al realizar el registro. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         } else {
                             Toast.makeText(NormalUserRegister.this, "Ha ocurrido un error." + task.getException().toString(), Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
@@ -165,30 +185,12 @@ public class NormalUserRegister extends AppCompatActivity {
                     }
                 });
     }
-
-    private void registrarUsuario() {
-        RequestParams params = new RequestParams();
-        params.put("id_usuario", UID);
-        params.put("id_documento", ET_Documento.getText().toString().trim());
-        params.put("nombre", ET_Nombre.getText().toString().trim());
-        params.put("apellido", ET_Apellido.getText().toString().trim());
-        params.put("fecha_nacimiento", ET_Nacimiento.getText().toString().trim());
-        params.put("discapacitado", RB_Discapacidad.isChecked());
-        params.put("correo", correo);
-        client.post(URL, params, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                startActivity(new Intent(NormalUserRegister.this, NormalUserQuery.class));
-                finish();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                user.delete();
-                Toast.makeText(getApplicationContext(), "Problema al realizar el registro. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 }
+
+/*
+INFORMACIÓN: Starting ProtocolHandler ["http-nio-8080"]
+jun 14, 2020 9:38:01 PM org.apache.catalina.startup.Catalina start
+INFORMACIÓN: Server startup in [490] milliseconds
+com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''db_proyecto'.'usuario' ('id_usuario', 'id_ubicacion' , 'id_documento', 'nombre'' at line 1
+	at sun.reflect.NativeConstructorAccess
+ */

@@ -1,5 +1,6 @@
 package com.example.proyectoestructurasdedatos;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,10 +10,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.proyectoestructurasdedatos.estructuras.ColaDePrioridad;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -52,6 +49,7 @@ public class AdminUserQuery extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //Ir a la actividad de Registrar Usuario
+                startActivity(new Intent(AdminUserQuery.this, RegisterUserDate.class));
             }
         });
 
@@ -70,7 +68,7 @@ public class AdminUserQuery extends AppCompatActivity {
         });
     }
 
-    /* private void crearCola(){
+    /*private void ingresarDatosCola(){
          listadoOrdenado = new String[][2];
          //Interfaz de cargando lista
          listaCola.setAdapter(new listAdapter(this,0));
@@ -83,7 +81,7 @@ public class AdminUserQuery extends AppCompatActivity {
          else{
              listaCola.setAdapter(new listAdapter(this, listadoOrdenado));
          }
-     } */
+     }*/
 
     private void solicitarCreacionCola () {
         RequestParams params = new RequestParams();
@@ -91,6 +89,7 @@ public class AdminUserQuery extends AppCompatActivity {
         params.put("horaInicial", 0);
         params.put("horaFinal", 0);
         params.put("minutosIntervalo", 0);
+        params.put("capacidadTurno", 0);
         client.post(URL, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -164,3 +163,12 @@ public class AdminUserQuery extends AppCompatActivity {
         }
     }*/
 }
+/*
+Constcola.getBufferQueueInstance().insertUser( new User(LocalTime.of(9, 10), "dsdasd", 3));
+Constcola.getBufferQueueInstance().insertUser( new User(LocalTime.of(9, 15), "dsdasd", 3));
+Constcola.getPriorityQueueInstance().insert(Constcola.getBufferQueueInstance().users[0].pushBack());
+Constcola.getPriorityQueueInstance().insert(Constcola.getBufferQueueInstance().users[0].pushBack());
+respuesta.println(Constcola.getPriorityQueueInstance().heap[0]);
+respuesta.println(Constcola.getPriorityQueueInstance().heap[1]);
+
+ */

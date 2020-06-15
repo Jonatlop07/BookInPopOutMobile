@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.proyectoestructurasdedatos.utilidades.DatosConexion;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -25,7 +26,7 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements DatosConexion {
 
     private FirebaseAuth mAuth;
     private FirebaseUser user;
@@ -43,7 +44,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
-        client = new AsyncHttpClient();
 
         emailText = (EditText) findViewById(R.id.LoginemailEditText);
         passText = (EditText) findViewById(R.id.LoginpassEditText);
@@ -73,10 +73,6 @@ public class LoginActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         user = mAuth.getCurrentUser();
-
-        if (user != null) {
-            verifyUserType(user.getUid());
-        }
     }
 
     private void LogIn() {
@@ -111,7 +107,33 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             user = mAuth.getCurrentUser();
-                            verifyUserType(user.getUid());
+                            //verifyUserType(user.getUid());
+                            RequestParams params = new RequestParams();
+                            params.put("id", user.getUid());
+                            params.put("email", email);
+                            client = new AsyncHttpClient();
+                            client.post(INICIO_SESION, params, new JsonHttpResponseHandler() {
+                                @Override
+                                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                                    super.onSuccess(statusCode, headers, response);
+                                    try {
+                                        boolean esEmpresarial = response.getBoolean("empleado");
+                                        if (esEmpresarial) {
+                                            startActivity(new Intent(LoginActivity.this, AdminUserQuery.class));
+                                        } else {
+                                            startActivity(new Intent(LoginActivity.this, NormalUserQuery.class));
+                                        }
+                                    } catch (JSONException e) {
+                                        Toast.makeText(getApplicationContext(), "Problema al intentar iniciar sesión. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                                    super.onFailure(statusCode, headers, responseString, throwable);
+                                    Toast.makeText(getApplicationContext(), "Problema al intentar iniciar sesión. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(LoginActivity.this, "Error al Iniciar sesión." + task.getException(), Toast.LENGTH_SHORT).show();
@@ -120,32 +142,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     }
-
-    private void verifyUserType(final String UID) {
-        RequestParams params = new RequestParams();
-        params.put(UID, "id");
-        client.post(URL, params, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                try {
-                    boolean esEmpresarial = response.getBoolean("empresarial");
-                    if (esEmpresarial) {
-                        startActivity(new Intent(LoginActivity.this, AdminUserQuery.class));
-                    } else {
-                        startActivity(new Intent(LoginActivity.this, NormalUserQuery.class));
-                    }
-                } catch (JSONException e) {
-                    Toast.makeText(getApplicationContext(), "Problema al intentar iniciar sesión. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                Toast.makeText(getApplicationContext(), "Problema al intentar iniciar sesión. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
 }
+
+//jonathan097@gmail.com jonathan097

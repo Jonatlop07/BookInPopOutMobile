@@ -50,7 +50,6 @@ public class NormalUserQuery extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(NormalUserQuery.this, userReserveDate.class);
-                intent.putExtra("user", currentUser);
                 startActivity(intent);
             }
         });
@@ -59,7 +58,6 @@ public class NormalUserQuery extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(NormalUserQuery.this, userCheckDates.class);
-                intent.putExtra("user", currentUser);
                 startActivity(intent);
             }
         });
@@ -93,7 +91,7 @@ public class NormalUserQuery extends AppCompatActivity {
         params.put("id", currentUser.getUid());
         client.post(URL, params, new JsonHttpResponseHandler() {
             @Override
-            public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 Toast.makeText(getApplicationContext(), "La cita ha sido cancelada con éxito.", Toast.LENGTH_SHORT).show();
             }

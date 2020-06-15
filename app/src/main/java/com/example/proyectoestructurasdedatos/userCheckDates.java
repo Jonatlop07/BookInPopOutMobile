@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -32,7 +33,9 @@ public class userCheckDates extends AppCompatActivity {
     final int anio = c.get(Calendar.YEAR);
     int aStamp, mStamp, dStamp;
 
-    FirebaseUser currentUser;
+    private FirebaseAuth mAuth;
+    FirebaseUser user;
+
     final String URL = "";
     AsyncHttpClient client;
 
@@ -44,6 +47,9 @@ public class userCheckDates extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_check_dates);
+
+        client = new AsyncHttpClient();
+        mAuth = FirebaseAuth.getInstance();
 
         etFecha = (EditText) findViewById(R.id.timeText2);
         BT_Fecha = (ImageButton) findViewById(R.id.dateButton);
@@ -59,11 +65,17 @@ public class userCheckDates extends AppCompatActivity {
         BT_Consultar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendConsulta(currentUser.getUid());
+                sendConsulta(user.getUid());
             }
         });
+    }
 
-        currentUser = (FirebaseUser) this.getIntent().getExtras().get("user");
+    @Override
+    public void onStart() {
+        super.onStart();
+        user = mAuth.getCurrentUser();
+
+        //Revisar el archivo para saber si tiene reserva o no
     }
 
 
@@ -89,6 +101,7 @@ public class userCheckDates extends AppCompatActivity {
         RequestParams params = new RequestParams();
         params.put("id", uid);
         params.put("fecha", etFecha.getText());
+
         client.post(URL, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
@@ -97,7 +110,7 @@ public class userCheckDates extends AppCompatActivity {
                     for (int i = 0; i < response.length(); i++) {
                         JSONObject attentionRegister = response.getJSONObject(i);
                         //Aquí iría el código para llenar el componente que muestra el registro de citas
-                        // String hora = attentionRegister.getString("hora");
+                        String hora = attentionRegister.getString("hora");
                     }
                 } catch (JSONException e) {
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();

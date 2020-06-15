@@ -42,4 +42,5 @@
     <string name="enterCola">Entrar a la cola</string>
     <string name="enterCita">Reservar una cita</string>
     <string name="noFilaPos">Aún no estás en la cola</string>
+    <string name="documentoUsuarioInstantaneo">Ingrese el documento del usuario</string>
 </resources>

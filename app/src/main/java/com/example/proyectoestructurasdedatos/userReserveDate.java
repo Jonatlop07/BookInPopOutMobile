@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -33,6 +34,8 @@ public class userReserveDate extends AppCompatActivity {
     EditText etHora;
     Button BT_Reservar;
     ImageButton BT_Hora;
+
+    private FirebaseAuth mAuth;
     FirebaseUser user;
 
     String URL = "";
@@ -44,7 +47,7 @@ public class userReserveDate extends AppCompatActivity {
         setContentView(R.layout.activity_user_reserve_date);
 
         client = new AsyncHttpClient();
-        user = (FirebaseUser) getIntent().getExtras().get("user");
+        mAuth = FirebaseAuth.getInstance();
 
         etHora = (EditText) findViewById(R.id.timeText);
         BT_Hora = (ImageButton) findViewById(R.id.hourButton);
@@ -63,6 +66,14 @@ public class userReserveDate extends AppCompatActivity {
                 solicitarEncolamiento();
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        user = mAuth.getCurrentUser();
+
+        //Revisar el archivo para saber si tiene reserva o no
     }
 
     private void obtenerHora() {
@@ -94,12 +105,22 @@ public class userReserveDate extends AppCompatActivity {
 
 
     private void solicitarEncolamiento() {
-        //Aquí se debe tomar la hora y el minuto del tiempo seleccionado
         int hora = 0, minuto = 0;
+        if ( etHora.getText().toString().split(" ")[1].equals("AM") ){
+            hora = Integer.parseInt( etHora.getText().toString().split(":")[0] );
+            minuto = Integer.parseInt( etHora.getText().toString().split(":")[1].split(" ")[0] );
+        } else {
+            hora = Integer.parseInt( etHora.getText().toString().split(":")[0] ) + 12;
+            minuto = Integer.parseInt( etHora.getText().toString().split(":")[1].split(" ")[0] );
+        }
+
+        //Aquí se debe tomar la hora y el minuto del tiempo seleccionado
+
         RequestParams params = new RequestParams();
         params.put("id", user.getUid());
         params.put("hora", hora);
         params.put("minuto", minuto);
+
         client.post(URL, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -110,6 +131,8 @@ public class userReserveDate extends AppCompatActivity {
                         int horaCita = response.getInt("hora");
                         int minutoCita = response.getInt("minuto");
                         //Aquí va el código para guardar la hora en el archivo
+
+                        Toast.makeText(getApplicationContext(), "Tu sida ha sido agendada para la hora que indicaste.", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(getApplicationContext(), "La hora ingresada se encuentra entre una franja de horario ocupada. Por favor ingrese otra hora o intente de nuevo más tarde.", Toast.LENGTH_LONG).show();
                     }
