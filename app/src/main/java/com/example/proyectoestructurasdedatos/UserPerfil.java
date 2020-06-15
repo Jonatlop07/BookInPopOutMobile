@@ -1,6 +1,7 @@
 package com.example.proyectoestructurasdedatos;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +32,8 @@ public class UserPerfil extends AppCompatActivity implements DatosConexion {
     RadioButton RB_Discapacidad, RB_NoDiscapacidad;
     Button BT_Editar, BT_EnviarCambios;
 
+    Drawable editTextOn;
+
     public final Calendar c = Calendar.getInstance();
     int aStamp, mStamp, dStamp;
 
@@ -48,11 +51,15 @@ public class UserPerfil extends AppCompatActivity implements DatosConexion {
 
         ET_Nombre = (EditText) findViewById(R.id.PerfilNombre);
         ET_FechaNacimiento = (EditText) findViewById(R.id.PerfilNacimiento);
-        ET_Documento = (EditText) findViewById(R.id.DocumentoEditText);
+        ET_Documento = (EditText) findViewById(R.id.PerfilDocumento);
         RB_Discapacidad = (RadioButton) findViewById(R.id.DiscaSiRadio);
         RB_NoDiscapacidad = (RadioButton) findViewById(R.id.DiscaNoRadio);
         BT_Editar = (Button) findViewById(R.id.editProfile);
         BT_EnviarCambios = (Button) findViewById(R.id.sendProfile);
+
+        editTextOn = ET_Nombre.getBackground();
+
+        uneditableComponents();
 
         BT_Editar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,10 +104,11 @@ public class UserPerfil extends AppCompatActivity implements DatosConexion {
     @Override
     protected void onStart() {
         super.onStart();
-        user = mAuth.getCurrentUser();
+        user = (FirebaseUser) getIntent().getExtras().get("user");
 
         RequestParams params = new RequestParams();
-        params.put("id", user.getUid());
+        String id = user.getUid();
+        params.put("id", id);
 
         client = new AsyncHttpClient();
 
@@ -111,7 +119,8 @@ public class UserPerfil extends AppCompatActivity implements DatosConexion {
                 try {
                     //Mostrar estos datos en pantalla
                     BT_EnviarCambios.setVisibility(View.INVISIBLE);
-                    //String[] fecha = response.getString("fecha_nacimiento").split("-");
+                    String fecha = response.getString("fecha_nacimiento");
+                    ET_FechaNacimiento.setText(fecha);
                     //ET_FechaNacimiento.setText(fecha[0] + "/" + fecha[1] + "/" + fecha[2]);
                     ET_Nombre.setText(response.getString("nombre"));
                     ET_Documento.setText(response.getString("documento"));
@@ -157,15 +166,15 @@ public class UserPerfil extends AppCompatActivity implements DatosConexion {
         ET_Nombre.setFocusableInTouchMode(true);
         ET_Nombre.setEnabled(true);
         ET_Nombre.setCursorVisible(true);
-        ET_Nombre.setBackgroundColor(Color.TRANSPARENT);
+        ET_Nombre.setBackgroundDrawable(editTextOn);
         ET_FechaNacimiento.setFocusableInTouchMode(true);
         ET_FechaNacimiento.setEnabled(true);
         ET_FechaNacimiento.setCursorVisible(true);
-        ET_FechaNacimiento.setBackgroundColor(Color.TRANSPARENT);
+        ET_FechaNacimiento.setBackgroundDrawable(editTextOn);
         ET_Documento.setFocusableInTouchMode(true);
         ET_Documento.setEnabled(true);
         ET_Documento.setCursorVisible(true);
-        ET_Documento.setBackgroundColor(Color.TRANSPARENT);
+        ET_Documento.setBackgroundDrawable(editTextOn);
         RB_Discapacidad.setEnabled(true);
         RB_NoDiscapacidad.setEnabled(true);
     }

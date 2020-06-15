@@ -65,8 +65,8 @@ public class NormalUserQuery extends AppCompatActivity implements DatosConexion 
         BT_ReservarCita.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(NormalUserQuery.this, userReserveDate.class);
+                intent.putExtra("user", currentUser);
                 startActivity(intent);
             }
         });
@@ -75,6 +75,7 @@ public class NormalUserQuery extends AppCompatActivity implements DatosConexion 
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(NormalUserQuery.this, userCheckDates.class);
+                intent.putExtra("user", currentUser);
                 startActivity(intent);
             }
         });
