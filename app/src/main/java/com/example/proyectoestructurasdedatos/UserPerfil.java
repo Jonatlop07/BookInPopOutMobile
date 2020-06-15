@@ -57,8 +57,8 @@ public class UserPerfil extends AppCompatActivity {
                 super.onSuccess(statusCode, headers, response);
                 try {
                     //Mostrar estos datos en pantalla
-                    response.getString("nombre");
-                    response.getString("documento");
+                    ET_Nombre.setText(response.getString("nombre"));
+                    ET_Documento.setText(response.getString("documento"));
                     response.getString("fechaNacimiento");
                     response.getString("direccion");
                     response.getBoolean("discapacitado");
