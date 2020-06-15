@@ -65,7 +65,7 @@
         android:background="@android:color/holo_blue_dark"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
-        android:text="ENCOLAR USUARIO"
+        android:text="REGISTRAR CITA A USUARIO"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -65,9 +65,6 @@
         android:tint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/adminActuLista"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/adminActuLista"
-        app:layout_constraintTop_toTopOf="@+id/adminActuLista"
         app:srcCompat="@drawable/ic_config" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

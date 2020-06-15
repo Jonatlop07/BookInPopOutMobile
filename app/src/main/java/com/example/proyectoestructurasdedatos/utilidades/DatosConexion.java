@@ -1,16 +1,19 @@
 package com.example.proyectoestructurasdedatos.utilidades;
 
 public interface DatosConexion {
-    String INICIO_SESION = "http://ae2c0c7a458d.ngrok.io/Proyecto/Inisession";
-    String REGISTRO_USUARIO_NORMAL = "https://ae2c0c7a458d.ngrok.io/Proyecto/Registro";
-    String REGISTRO_USUARIO_EMPRESARIAL = "https://ae2c0c7a458d.ngrok.io/Proyecto/Regempresarial";
-    String SOLICITUD_CREACION_COLA = "";
-    String SOLICITUD_ENCOLAMIENTO = "";
-    String CONFIRMACION = "";
-    String SOLICITUD_HISTORIAL = "";
-    String REQUERIR_INFORMACION_COLA = "";
-    String CONSULTAR_EXISTENCIA_USUARIO = "";
-    String REGISTRAR_CITA_USUARIO_INSTANTANEO = "";
-    String INFORMACION_USUARIO = "";
-    String CANCELAR_CITA = "";
+    String MAIN_URL = "http://492c48364b7f.ngrok.io/Proyecto/";
+    String INICIO_SESION = MAIN_URL + "Inisession";
+    String REGISTRO_USUARIO_NORMAL =  MAIN_URL + "Registro";
+    String REGISTRO_USUARIO_EMPRESARIAL = MAIN_URL + "Regempresarial";
+    String SOLICITUD_CREACION_COLA = MAIN_URL + "Creacola";
+    String SOLICITUD_ENCOLAMIENTO = MAIN_URL + "";
+    String SOLICITUD_DESENCOLAMIENTO = MAIN_URL + "";
+    String CONFIRMACION = MAIN_URL + "";
+    String SOLICITUD_HISTORIAL = MAIN_URL + "Historial";
+    String REQUERIR_INFORMACION_COLA = MAIN_URL + "Infocola";
+    String CONSULTAR_EXISTENCIA_USUARIO = MAIN_URL + "Existencia_usuario";
+    String REGISTRAR_CITA_USUARIO_INSTANTANEO = MAIN_URL + "Regcita";
+    String INFORMACION_USUARIO = MAIN_URL + "Infousuario";
+    String ACTUALIZAR_USUARIO_NORMAL = MAIN_URL + "";
+    String CANCELAR_CITA = MAIN_URL + "";
 }

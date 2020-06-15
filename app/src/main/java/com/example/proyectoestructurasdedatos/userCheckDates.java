@@ -7,10 +7,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.proyectoestructurasdedatos.utilidades.DatosConexion;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.loopj.android.http.AsyncHttpClient;
@@ -25,7 +27,7 @@ import java.util.Calendar;
 
 import cz.msebera.android.httpclient.Header;
 
-public class userCheckDates extends AppCompatActivity {
+public class userCheckDates extends AppCompatActivity implements DatosConexion {
 
     public final Calendar c = Calendar.getInstance();
     final int mes = c.get(Calendar.MONTH);
@@ -42,18 +44,22 @@ public class userCheckDates extends AppCompatActivity {
     EditText etFecha;
     Button BT_Consultar;
     ImageButton BT_Fecha;
+    ListView listaCola;
+    String[] listadoHoras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_check_dates);
 
-        client = new AsyncHttpClient();
         mAuth = FirebaseAuth.getInstance();
 
         etFecha = (EditText) findViewById(R.id.timeText2);
         BT_Fecha = (ImageButton) findViewById(R.id.dateButton);
         BT_Consultar = (Button) findViewById(R.id.checkDateButton);
+        listaCola = (ListView) findViewById(R.id.listaColas);
+
+        listaCola.setAdapter(new listAdapter(this, 2));
 
         BT_Fecha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +71,39 @@ public class userCheckDates extends AppCompatActivity {
         BT_Consultar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendConsulta(user.getUid());
+                String[] fecha = etFecha.getText().toString().split("/");
+                RequestParams params = new RequestParams();
+                params.put("id", user.getUid());
+                params.put("fecha", fecha[0] + fecha[1] + fecha[2]);
+
+                client = new AsyncHttpClient();
+
+                client.post(SOLICITUD_HISTORIAL, params, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                        super.onSuccess(statusCode, headers, response);
+                        try {
+                            listadoHoras = new String[response.length()];
+
+                            for (int i = 0; i < response.length(); i++) {
+                                JSONObject attentionRegister = response.getJSONObject(i);
+                                //Aquí iría el código para llenar el componente que muestra el registro de citas
+
+                                String hora = "Hora: " + attentionRegister.getString("hora") + "\nAtendido: " + attentionRegister.getString("atendido");
+                                listadoHoras[i] = hora;
+                            }
+                            listaCola.setAdapter(new listAdapter(getApplicationContext(), listadoHoras));
+                        } catch (JSONException e) {
+                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        super.onFailure(statusCode, headers, responseString, throwable);
+                        Toast.makeText(getApplicationContext(), "Problema al realizar el registro. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
@@ -95,33 +133,5 @@ public class userCheckDates extends AppCompatActivity {
         }, anio, mes, dia);
         recogerFecha.getDatePicker().setMaxDate(System.currentTimeMillis());
         recogerFecha.show();
-    }
-
-    private void sendConsulta(String uid) {
-        RequestParams params = new RequestParams();
-        params.put("id", uid);
-        params.put("fecha", etFecha.getText());
-
-        client.post(URL, params, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
-                super.onSuccess(statusCode, headers, response);
-                try {
-                    for (int i = 0; i < response.length(); i++) {
-                        JSONObject attentionRegister = response.getJSONObject(i);
-                        //Aquí iría el código para llenar el componente que muestra el registro de citas
-                        String hora = attentionRegister.getString("hora");
-                    }
-                } catch (JSONException e) {
-                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                Toast.makeText(getApplicationContext(), "Problema al realizar el registro. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }

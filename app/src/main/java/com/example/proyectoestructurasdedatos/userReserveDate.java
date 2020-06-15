@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.proyectoestructurasdedatos.utilidades.DatosConexion;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.loopj.android.http.AsyncHttpClient;
@@ -24,7 +25,7 @@ import java.util.Calendar;
 
 import cz.msebera.android.httpclient.Header;
 
-public class userReserveDate extends AppCompatActivity {
+public class userReserveDate extends AppCompatActivity implements DatosConexion {
 
     private static final String CERO = "0";
     private static final String DOS_PUNTOS = ":";
@@ -63,7 +64,46 @@ public class userReserveDate extends AppCompatActivity {
         BT_Reservar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                solicitarEncolamiento();
+                int hora = 0, minuto = 0;
+                if ( etHora.getText().toString().split(" ")[1].equals("AM") ){
+                    hora = Integer.parseInt( etHora.getText().toString().split(":")[0] );
+                    minuto = Integer.parseInt( etHora.getText().toString().split(":")[1].split(" ")[0] );
+                } else {
+                    hora = Integer.parseInt( etHora.getText().toString().split(":")[0] ) + 12;
+                    minuto = Integer.parseInt( etHora.getText().toString().split(":")[1].split(" ")[0] );
+                }
+
+                RequestParams params = new RequestParams();
+                params.put("id", user.getUid());
+                params.put("hora", hora);
+                params.put("minuto", minuto);
+
+                client.post(URL, params, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        super.onSuccess(statusCode, headers, response);
+                        try {
+                            boolean encolado = response.getBoolean("encolado");
+                            if (encolado) {
+                                int horaCita = response.getInt("hora");
+                                int minutoCita = response.getInt("minuto");
+                                //Aquí va el código para guardar la hora en el archivo
+
+                                Toast.makeText(getApplicationContext(), "Tu sida ha sido agendada para la hora que indicaste.", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "La hora ingresada se encuentra entre una franja de horario ocupada. Por favor ingrese otra hora o intente de nuevo más tarde.", Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        super.onFailure(statusCode, headers, responseString, throwable);
+                        Toast.makeText(getApplicationContext(), "Error al procesar la solicitud. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
@@ -101,51 +141,5 @@ public class userReserveDate extends AppCompatActivity {
             }
         }, hora, 0, false);
         recogerFecha.show();
-    }
-
-
-    private void solicitarEncolamiento() {
-        int hora = 0, minuto = 0;
-        if ( etHora.getText().toString().split(" ")[1].equals("AM") ){
-            hora = Integer.parseInt( etHora.getText().toString().split(":")[0] );
-            minuto = Integer.parseInt( etHora.getText().toString().split(":")[1].split(" ")[0] );
-        } else {
-            hora = Integer.parseInt( etHora.getText().toString().split(":")[0] ) + 12;
-            minuto = Integer.parseInt( etHora.getText().toString().split(":")[1].split(" ")[0] );
-        }
-
-        //Aquí se debe tomar la hora y el minuto del tiempo seleccionado
-
-        RequestParams params = new RequestParams();
-        params.put("id", user.getUid());
-        params.put("hora", hora);
-        params.put("minuto", minuto);
-
-        client.post(URL, params, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                try {
-                    boolean encolado = response.getBoolean("encolado");
-                    if (encolado) {
-                        int horaCita = response.getInt("hora");
-                        int minutoCita = response.getInt("minuto");
-                        //Aquí va el código para guardar la hora en el archivo
-
-                        Toast.makeText(getApplicationContext(), "Tu sida ha sido agendada para la hora que indicaste.", Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(getApplicationContext(), "La hora ingresada se encuentra entre una franja de horario ocupada. Por favor ingrese otra hora o intente de nuevo más tarde.", Toast.LENGTH_LONG).show();
-                    }
-                } catch (JSONException e) {
-                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                Toast.makeText(getApplicationContext(), "Error al procesar la solicitud. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 }

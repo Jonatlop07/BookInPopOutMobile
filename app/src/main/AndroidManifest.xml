@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".RegisterUserDate"></activity>
+        <activity android:name=".AdminQueue"></activity>
+        <activity android:name=".RegisterUserDate" />
         <activity android:name=".UserPerfil" />
         <activity android:name=".userCheckDates" />
         <activity android:name=".userReserveDate" />

@@ -2,6 +2,7 @@ package com.example.proyectoestructurasdedatos;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +16,10 @@ public class listAdapter extends BaseAdapter {
     private ProgressDialog progressDialog;
 
     private Context contexto;
-    private String[][] datos;
+    private String[] datos;
     private int state = -1;
 
-    public listAdapter(Context contexto, String[][] datos) {
+    public listAdapter(Context contexto, String[] datos) {
         this.contexto = contexto;
         this.datos = datos;
 
@@ -49,12 +50,13 @@ public class listAdapter extends BaseAdapter {
             } else {
                 vista = inflater.inflate(R.layout.elem_lista, null);
 
-                TextView Nombre = (TextView) vista.findViewById(R.id.textoPerfil);
-                TextView Documento = (TextView) vista.findViewById(R.id.textoAsign);
+                TextView Dato = (TextView) vista.findViewById(R.id.textoPerfil);
                 TextView Pos = (TextView) vista.findViewById(R.id.textoFecha);
 
-                Nombre.setText(datos[i][0]);
-                Documento.setText(datos[i][1]);
+                Dato.setTextColor(Color.BLACK);
+                Pos.setTextColor(Color.BLACK);
+
+                Dato.setText(datos[i]);
                 Pos.setText(String.valueOf(i + 1));
             }
         }

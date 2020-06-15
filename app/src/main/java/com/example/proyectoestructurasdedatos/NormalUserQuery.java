@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.proyectoestructurasdedatos.utilidades.DatosConexion;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.loopj.android.http.AsyncHttpClient;
@@ -18,12 +19,11 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
-public class NormalUserQuery extends AppCompatActivity {
+public class NormalUserQuery extends AppCompatActivity implements DatosConexion {
 
     private FirebaseAuth mAuth;
     FirebaseUser currentUser;
     Button BT_CancelarCita, BT_ReservarCita, BT_CitasAntes, BT_Perfil;
-    String URL = "";
     AsyncHttpClient client;
 
     @Override
@@ -41,7 +41,24 @@ public class NormalUserQuery extends AppCompatActivity {
         BT_CancelarCita.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cancelarCita();
+                RequestParams params = new RequestParams();
+                params.put("id", currentUser.getUid());
+
+                client = new AsyncHttpClient();
+
+                client.post(CANCELAR_CITA, params, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                        super.onSuccess(statusCode, headers, response);
+                        Toast.makeText(getApplicationContext(), "La cita ha sido cancelada con éxito.", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                        super.onFailure(statusCode, headers, responseString, throwable);
+                        Toast.makeText(getApplicationContext(), "Error al procesar la petición. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
@@ -84,25 +101,4 @@ public class NormalUserQuery extends AppCompatActivity {
         //Función para leer el archivo, y si tiene una hora se retorna true, si está vacío se retorna false
         return true;
     }
-
-    private void cancelarCita() {
-        //Código para enviar un post al servidor para sacar al usuario de la lista
-        RequestParams params = new RequestParams();
-        params.put("id", currentUser.getUid());
-        client.post(URL, params, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                Toast.makeText(getApplicationContext(), "La cita ha sido cancelada con éxito.", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                Toast.makeText(getApplicationContext(), "Error al procesar la petición. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-
 }

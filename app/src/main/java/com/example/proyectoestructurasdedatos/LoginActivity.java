@@ -143,5 +143,3 @@ public class LoginActivity extends AppCompatActivity implements DatosConexion {
                 });
     }
 }
-
-//jonathan097@gmail.com jonathan097
