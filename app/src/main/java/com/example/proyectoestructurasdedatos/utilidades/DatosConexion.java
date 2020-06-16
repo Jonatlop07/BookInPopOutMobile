@@ -6,8 +6,8 @@ public interface DatosConexion {
     String REGISTRO_USUARIO_NORMAL =  MAIN_URL + "Registro";
     String REGISTRO_USUARIO_EMPRESARIAL = MAIN_URL + "Regempresarial";
     String SOLICITUD_CREACION_COLA = MAIN_URL + "Creacola";
-    String SOLICITUD_ENCOLAMIENTO = MAIN_URL + "";
-    String SOLICITUD_DESENCOLAMIENTO = MAIN_URL + "";
+    String SOLICITUD_ENCOLAMIENTO = MAIN_URL + "Encolamiento";
+    String SOLICITUD_DESENCOLAMIENTO = MAIN_URL + "Desencolar";
     String CONFIRMACION = MAIN_URL + "";
     String SOLICITUD_HISTORIAL = MAIN_URL + "Historial";
     String REQUERIR_INFORMACION_COLA = MAIN_URL + "Infocola";

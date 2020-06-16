@@ -47,7 +47,6 @@ public class userReserveDate extends AppCompatActivity implements DatosConexion 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_reserve_date);
 
-        client = new AsyncHttpClient();
         mAuth = FirebaseAuth.getInstance();
 
         etHora = (EditText) findViewById(R.id.timeText);
@@ -64,32 +63,23 @@ public class userReserveDate extends AppCompatActivity implements DatosConexion 
         BT_Reservar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int hora = 0, minuto = 0;
-                if ( etHora.getText().toString().split(" ")[1].equals("AM") ){
-                    hora = Integer.parseInt( etHora.getText().toString().split(":")[0] );
-                    minuto = Integer.parseInt( etHora.getText().toString().split(":")[1].split(" ")[0] );
-                } else {
-                    hora = Integer.parseInt( etHora.getText().toString().split(":")[0] ) + 12;
-                    minuto = Integer.parseInt( etHora.getText().toString().split(":")[1].split(" ")[0] );
-                }
-
                 RequestParams params = new RequestParams();
                 params.put("id", user.getUid());
-                params.put("hora", hora);
-                params.put("minuto", minuto);
+                params.put("hora", etHora.getText().toString().split(":")[0]);
+                params.put("minuto", etHora.getText().toString().split(":")[1]);
 
-                client.post(URL, params, new JsonHttpResponseHandler() {
+                client = new AsyncHttpClient();
+
+                client.post(SOLICITUD_ENCOLAMIENTO, params, new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         super.onSuccess(statusCode, headers, response);
                         try {
                             boolean encolado = response.getBoolean("encolado");
                             if (encolado) {
-                                int horaCita = response.getInt("hora");
-                                int minutoCita = response.getInt("minuto");
                                 //Aquí va el código para guardar la hora en el archivo
 
-                                Toast.makeText(getApplicationContext(), "Tu sida ha sido agendada para la hora que indicaste.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Tu cita ha sido agendada para la hora que indicaste.", Toast.LENGTH_LONG).show();
                             } else {
                                 Toast.makeText(getApplicationContext(), "La hora ingresada se encuentra entre una franja de horario ocupada. Por favor ingrese otra hora o intente de nuevo más tarde.", Toast.LENGTH_LONG).show();
                             }
@@ -121,14 +111,8 @@ public class userReserveDate extends AppCompatActivity implements DatosConexion 
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 //Formateo el hora obtenido: antepone el 0 si son menores de 10
-                String AM_PM;
-                if (hourOfDay < 12) {
-                    AM_PM = "AM";
-                } else {
-                    AM_PM = "PM";
-                }
 
-                hourOfDay = (hourOfDay == 12 || hourOfDay == 0) ? 12 : hourOfDay % 12;
+                hourOfDay = (hourOfDay == 24 || hourOfDay == 0) ? 24 : hourOfDay % 24;
 
                 String horaFormateada = (hourOfDay < 10) ? String.valueOf(CERO + hourOfDay) : String.valueOf(hourOfDay);
                 //Formateo el minuto obtenido: antepone el 0 si son menores de 10
@@ -137,7 +121,7 @@ public class userReserveDate extends AppCompatActivity implements DatosConexion 
 
 
                 //Muestro la hora con el formato deseado
-                etHora.setText(horaFormateada + DOS_PUNTOS + minutoFormateado + " " + AM_PM);
+                etHora.setText(horaFormateada + DOS_PUNTOS + minutoFormateado);
             }
         }, hora, 0, false);
         recogerFecha.show();
