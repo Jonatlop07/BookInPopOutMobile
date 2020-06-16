@@ -16,6 +16,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class AdminQueue extends AppCompatActivity implements DatosConexion {
@@ -100,10 +101,12 @@ public class AdminQueue extends AppCompatActivity implements DatosConexion {
                 });
             }
         });
+
         BT_Desencolar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AsyncHttpClient client = new AsyncHttpClient();
+
                 client.get(SOLICITUD_DESENCOLAMIENTO, new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

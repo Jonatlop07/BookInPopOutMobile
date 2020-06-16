@@ -60,6 +60,7 @@ public class AdminUserQuery extends AppCompatActivity implements DatosConexion {
                     public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                         super.onSuccess(statusCode, headers, response);
                         try {
+                            listaCola.setAdapter(new listAdapter(getApplicationContext(), 2));
                             listadoOrdenado = new String[response.length()];
 
                             for ( int i = 0; i < response.length(); i++ ) {
