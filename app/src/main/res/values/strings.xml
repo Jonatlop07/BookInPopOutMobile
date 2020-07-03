@@ -43,4 +43,6 @@
     <string name="enterCita">Reservar una cita</string>
     <string name="noFilaPos">Aún no estás en la cola</string>
     <string name="documentoUsuarioInstantaneo">Ingrese el documento del usuario</string>
+
+    <string name="registroNew">¿Sin cuenta? Registrate oprimiendo aquí</string>
 </resources>

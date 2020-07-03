@@ -3,9 +3,11 @@ package com.example.proyectoestructurasdedatos;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,7 +35,8 @@ public class LoginActivity extends AppCompatActivity implements DatosConexion {
     private ProgressDialog progressDialog;
 
     EditText emailText, passText;
-    Button initButton, registerButton;
+    TextView registerButton;
+    Button initButton;
 
     AsyncHttpClient client;
     final String URL = "";
@@ -48,7 +51,11 @@ public class LoginActivity extends AppCompatActivity implements DatosConexion {
         emailText = (EditText) findViewById(R.id.LoginemailEditText);
         passText = (EditText) findViewById(R.id.LoginpassEditText);
         initButton = (Button) findViewById(R.id.LoginbotonContinuar);
-        registerButton = (Button) findViewById(R.id.botonRegistro);
+        registerButton = (TextView) findViewById(R.id.botonRegistro);
+
+        String formattedText = "¿Sin cuenta? Registrate oprimiendo <font color='#475299'>aquí</font>";
+
+        registerButton.setText(Html.fromHtml(formattedText));
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Iniciando sesión...");
