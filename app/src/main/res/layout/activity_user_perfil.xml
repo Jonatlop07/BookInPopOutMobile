@@ -4,206 +4,193 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/top_line_bg"
     tools:context=".UserPerfil">
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:background="#2E2D2D"
-        android:gravity="center_vertical"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingRight="20dp"
-        android:paddingBottom="10dp"
-        android:text="Perfil del Usuario"
-        android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:text="@string/DatoNombre"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13"
-        app:layout_constraintVertical_bias="0.023" />
-
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Fecha de nacimiento"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/PerfilNombre"
-        app:layout_constraintTop_toBottomOf="@+id/PerfilDocumento"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/PerfilNombre"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:gravity="center_vertical"
+        android:text="Perfil del Usuario"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        app:fontFamily="@font/nunito"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView14"
-        app:layout_constraintTop_toBottomOf="@+id/textView14"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/PerfilNacimiento"
+    <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:ems="10"
-        android:inputType="textPersonName"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/textView16"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/PerfilDocumento"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView15"
-        app:layout_constraintTop_toBottomOf="@+id/textView15"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Discapacitado"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/PerfilNombre"
-        app:layout_constraintTop_toBottomOf="@+id/PerfilDocumento"
-        app:layout_constraintVertical_bias="0.309" />
-
-    <Button
-        android:id="@+id/sendProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="169dp"
-        android:layout_marginLeft="169dp"
-        android:layout_marginTop="88dp"
-        android:layout_marginEnd="154dp"
-        android:layout_marginRight="154dp"
-        android:background="@android:color/holo_blue_dark"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:text="Confirmar cambios"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.716"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
+        app:layout_constraintTop_toTopOf="@+id/guideline8">
 
-    <Button
-        android:id="@+id/editProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="169dp"
-        android:layout_marginLeft="169dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="154dp"
-        android:layout_marginRight="154dp"
-        android:background="@android:color/holo_blue_dark"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:text="Editar perfil"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:checkedButton="@id/DiscaNoRadio"
-        android:gravity="center_horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.452"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView24">
-
-        <RadioButton
-            android:id="@+id/DiscaSiRadio"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/SI"
-            tools:layout_conversion_absoluteHeight="31dp"
-            tools:layout_conversion_absoluteWidth="135dp"
-            tools:layout_editor_absoluteX="24dp"
-            tools:layout_editor_absoluteY="281dp" />
+            android:orientation="vertical">
 
-        <RadioButton
-            android:id="@+id/DiscaNoRadio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/NO"
-            tools:layout_conversion_absoluteHeight="32dp"
-            tools:layout_conversion_absoluteWidth="174dp"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="320dp" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    </RadioGroup>
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/DatoNombre"
+                    app:fontFamily="@font/nunito"
+                    app:layout_constraintBottom_toTopOf="@+id/PerfilNombre"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView15"
+                <TextView
+                    android:id="@+id/textView24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="32dp"
+                    android:text="Discapacitado"
+                    app:fontFamily="@font/nunito"
+                    app:layout_constraintBottom_toTopOf="@+id/editProfile"
+                    app:layout_constraintEnd_toStartOf="@+id/PerfilSwitchDisca"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/PerfilNacimiento"
+                    app:layout_constraintTop_toBottomOf="@+id/PerfilNacimiento" />
+
+                <EditText
+                    android:id="@+id/PerfilNacimiento"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    app:fontFamily="@font/nunito"
+                    app:layout_constraintBottom_toTopOf="@+id/textView24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/textView16"
+                    app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="Fecha de nacimiento"
+                    app:fontFamily="@font/nunito"
+                    app:layout_constraintBottom_toTopOf="@+id/PerfilNacimiento"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/PerfilDocumento"
+                    app:layout_constraintTop_toBottomOf="@+id/PerfilDocumento" />
+
+                <EditText
+                    android:id="@+id/PerfilNombre"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    app:fontFamily="@font/nunito"
+                    app:layout_constraintBottom_toTopOf="@+id/textView15"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/textView14"
+                    app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/DatoDocumento"
+                    app:fontFamily="@font/nunito"
+                    app:layout_constraintBottom_toTopOf="@+id/PerfilDocumento"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/PerfilNombre"
+                    app:layout_constraintTop_toBottomOf="@+id/PerfilNombre" />
+
+                <EditText
+                    android:id="@+id/PerfilDocumento"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    app:fontFamily="@font/nunito"
+                    app:layout_constraintBottom_toTopOf="@+id/textView16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/textView15"
+                    app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+                <Button
+                    android:id="@+id/editProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="32dp"
+                    android:background="@drawable/roundedbutton"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:text="Editar perfil"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:paddingHorizontal="10dp"
+                    android:textColor="#FFFFFF"
+                    app:fontFamily="@font/nunito"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+                <Switch
+                    android:id="@+id/PerfilSwitchDisca"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginRight="24dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/textView24"
+                    app:layout_constraintTop_toTopOf="@+id/textView24" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/DatoDocumento"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/PerfilNombre"
-        app:layout_constraintTop_toBottomOf="@+id/PerfilNombre"
-        app:layout_constraintVertical_bias="0.0" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.08" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

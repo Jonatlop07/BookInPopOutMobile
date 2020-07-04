@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,13 +30,14 @@ import cz.msebera.android.httpclient.Header;
 public class UserPerfil extends AppCompatActivity implements DatosConexion {
 
     EditText ET_Nombre, ET_Documento, ET_FechaNacimiento;
-    RadioButton RB_Discapacidad, RB_NoDiscapacidad;
-    Button BT_Editar, BT_EnviarCambios;
+    Switch SW_Disca;
+    Button BT_Editar;
 
     Drawable editTextOn;
 
     public final Calendar c = Calendar.getInstance();
     int aStamp, mStamp, dStamp;
+    boolean send = false;
 
     private FirebaseAuth mAuth;
     FirebaseUser user;
@@ -52,10 +54,8 @@ public class UserPerfil extends AppCompatActivity implements DatosConexion {
         ET_Nombre = (EditText) findViewById(R.id.PerfilNombre);
         ET_FechaNacimiento = (EditText) findViewById(R.id.PerfilNacimiento);
         ET_Documento = (EditText) findViewById(R.id.PerfilDocumento);
-        RB_Discapacidad = (RadioButton) findViewById(R.id.DiscaSiRadio);
-        RB_NoDiscapacidad = (RadioButton) findViewById(R.id.DiscaNoRadio);
+        SW_Disca = (Switch) findViewById(R.id.PerfilSwitchDisca);
         BT_Editar = (Button) findViewById(R.id.editProfile);
-        BT_EnviarCambios = (Button) findViewById(R.id.sendProfile);
 
         editTextOn = ET_Nombre.getBackground();
 
@@ -64,41 +64,18 @@ public class UserPerfil extends AppCompatActivity implements DatosConexion {
         BT_Editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BT_Editar.setVisibility(View.INVISIBLE);
-                BT_EnviarCambios.setVisibility(View.VISIBLE);
-                editableComponents();
+                if(send){
+                    enviarCambios();
+                }
+                else{
+                    BT_Editar.setText("Actualizar datos");
+                    editableComponents();
+                    send = true;
+                }
+
             }
         });
 
-        BT_EnviarCambios.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BT_EnviarCambios.setVisibility(View.INVISIBLE);
-                BT_Editar.setVisibility(View.VISIBLE);
-
-                RequestParams params = new RequestParams();
-                params.put("id_usuario", user.getUid());
-                params.put("id_documento", ET_Documento.getText().toString().trim());
-                params.put("nombre", ET_Nombre.getText().toString().trim());
-                params.put("fecha_nacimiento", ET_FechaNacimiento.getText().toString().trim());
-                params.put("discapacitado", RB_Discapacidad.isChecked());
-                client = new AsyncHttpClient();
-
-                client.post(ACTUALIZAR_USUARIO_NORMAL, params, new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        Toast.makeText(getApplicationContext(), "Perfil actualizado correctamente.", Toast.LENGTH_SHORT).show();
-                        uneditableComponents();
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-                        Toast.makeText(getApplicationContext(), "Problema al modificar el perfil. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
     }
 
     @Override
@@ -117,19 +94,13 @@ public class UserPerfil extends AppCompatActivity implements DatosConexion {
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 try {
-                    //Mostrar estos datos en pantalla
-                    BT_EnviarCambios.setVisibility(View.INVISIBLE);
                     String fecha = response.getString("fecha_nacimiento");
                     ET_FechaNacimiento.setText(fecha);
                     //ET_FechaNacimiento.setText(fecha[0] + "/" + fecha[1] + "/" + fecha[2]);
                     ET_Nombre.setText(response.getString("nombre"));
                     ET_Documento.setText(response.getString("documento"));
                     if (response.getBoolean("discapacitado")){
-                        RB_Discapacidad.setChecked(true);
-                        RB_NoDiscapacidad.setChecked(false);
-                    } else {
-                        RB_NoDiscapacidad.setChecked(true);
-                        RB_Discapacidad.setChecked(false);
+                        SW_Disca .setChecked(true);
                     }
 
                 } catch (JSONException e) {
@@ -158,8 +129,7 @@ public class UserPerfil extends AppCompatActivity implements DatosConexion {
         ET_Documento.setEnabled(false);
         ET_Documento.setCursorVisible(false);
         ET_Documento.setBackgroundColor(Color.TRANSPARENT);
-        RB_Discapacidad.setEnabled(false);
-        RB_NoDiscapacidad.setEnabled(false);
+        SW_Disca.setEnabled(false);
     }
 
     private void editableComponents() {
@@ -175,7 +145,31 @@ public class UserPerfil extends AppCompatActivity implements DatosConexion {
         ET_Documento.setEnabled(true);
         ET_Documento.setCursorVisible(true);
         ET_Documento.setBackgroundDrawable(editTextOn);
-        RB_Discapacidad.setEnabled(true);
-        RB_NoDiscapacidad.setEnabled(true);
+        SW_Disca .setEnabled(true);
+    }
+
+    private void enviarCambios(){
+        RequestParams params = new RequestParams();
+        params.put("id_usuario", user.getUid());
+        params.put("id_documento", ET_Documento.getText().toString().trim());
+        params.put("nombre", ET_Nombre.getText().toString().trim());
+        params.put("fecha_nacimiento", ET_FechaNacimiento.getText().toString().trim());
+        params.put("discapacitado", SW_Disca.isChecked());
+        client = new AsyncHttpClient();
+
+        client.post(ACTUALIZAR_USUARIO_NORMAL, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                Toast.makeText(getApplicationContext(), "Perfil actualizado correctamente.", Toast.LENGTH_SHORT).show();
+                BT_Editar.setText("Editar perfil");
+                send = false;
+                uneditableComponents();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(getApplicationContext(), "Problema al modificar el perfil. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

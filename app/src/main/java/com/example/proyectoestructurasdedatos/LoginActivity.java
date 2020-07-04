@@ -130,8 +130,10 @@ public class LoginActivity extends AppCompatActivity implements DatosConexion {
                                         } else {
                                             startActivity(new Intent(LoginActivity.this, NormalUserQuery.class));
                                         }
+                                        progressDialog.dismiss();
                                     } catch (JSONException e) {
                                         Toast.makeText(getApplicationContext(), "Problema al intentar iniciar sesión. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
+                                        progressDialog.dismiss();
                                     }
                                 }
 
@@ -139,13 +141,15 @@ public class LoginActivity extends AppCompatActivity implements DatosConexion {
                                 public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                                     super.onFailure(statusCode, headers, responseString, throwable);
                                     Toast.makeText(getApplicationContext(), "Problema al intentar iniciar sesión. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
+                                    progressDialog.dismiss();
                                 }
                             });
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(LoginActivity.this, "Error al Iniciar sesión." + task.getException(), Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
                         }
-                        progressDialog.dismiss();
+
                     }
                 });
     }
