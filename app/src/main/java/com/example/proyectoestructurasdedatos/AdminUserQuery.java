@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.proyectoestructurasdedatos.utilidades.DatosConexion;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,9 +22,8 @@ import cz.msebera.android.httpclient.Header;
 
 public class AdminUserQuery extends AppCompatActivity implements DatosConexion {
 
-    Button BT_regUser, BT_actualizarCola;
     ListView listaCola;
-    ImageButton BT_Config;
+    ImageButton BT_actualizarCola, BT_Config, BT_regUser, BT_sacarUser;
 
     AsyncHttpClient client;
 
@@ -34,11 +32,12 @@ public class AdminUserQuery extends AppCompatActivity implements DatosConexion {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_user_query);
+        setContentView(R.layout.activity_admin_user_query;
 
-        BT_regUser = (Button) findViewById(R.id.adminRegisUser);
-        BT_actualizarCola = (Button) findViewById(R.id.adminActuLista);
-        BT_Config = (ImageButton) findViewById(R.id.configCola);
+        BT_regUser = (ImageButton) findViewById(R.id.registerAdminPersonButton);
+        BT_actualizarCola = (ImageButton) findViewById(R.id.updateHeapAdminButton);
+        BT_Config = (ImageButton) findViewById(R.id.ConfigHeapButton);
+        BT_sacarUser = (ImageButton) findViewById(R.id.takeOutAdminButton);
         listaCola = (ListView) findViewById(R.id.listaColas);
 
         listaCola.setAdapter(new listAdapter(this, 2));
@@ -92,5 +91,8 @@ public class AdminUserQuery extends AppCompatActivity implements DatosConexion {
                 startActivity(new Intent(AdminUserQuery.this, AdminQueue.class));
             }
         });
+
+        listaCola.setAdapter(new listAdapter(getApplicationContext(), 0));
+
     }
 }
