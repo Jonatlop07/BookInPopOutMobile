@@ -217,7 +217,7 @@ public class RegisterActivity extends AppCompatActivity implements DatosConexion
                                     @Override
                                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                                         user.delete();
-                                        Toast.makeText(getApplicationContext(), "Problema al realizar el registro. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "Problema al realizar el registro. Por favor inténtelo de nuevo." + error.getMessage(), Toast.LENGTH_SHORT).show();
                                         progressDialog.dismiss();
                                     }
                                 });

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class AdminQueue extends AppCompatActivity implements DatosConexion {
 
     EditText ET_Size, ET_startHour, ET_endHour, ET_interval, ET_capacity;
     Button BT_CrearCola;
+    ImageButton BT_HoraI, BT_HoraF;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class AdminQueue extends AppCompatActivity implements DatosConexion {
         ET_interval = (EditText) findViewById(R.id.interval);
         ET_capacity = (EditText) findViewById(R.id.capacity);
         BT_CrearCola = (Button) findViewById(R.id.btnCrearCola);
+        BT_HoraI = (ImageButton) findViewById(R.id.AdminQueueTimeS);
+        BT_HoraF = (ImageButton) findViewById(R.id.AdminQueueTimeF);
 
         BT_CrearCola.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +102,20 @@ public class AdminQueue extends AppCompatActivity implements DatosConexion {
             }
         });
 
+
+        BT_HoraI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                obtenerHoraInicio();
+            }
+        });
+
+        BT_HoraF.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                obtenerHoraFinal();
+            }
+        });
     }
 
     private void obtenerHoraInicio() {
