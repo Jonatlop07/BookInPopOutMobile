@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyectoestructurasdedatos.utilidades.DatosConexion;
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
@@ -32,7 +33,7 @@ public class AdminUserQuery extends AppCompatActivity implements DatosConexion {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_user_query;
+        setContentView(R.layout.activity_admin_user_query);
 
         BT_regUser = (ImageButton) findViewById(R.id.registerAdminPersonButton);
         BT_actualizarCola = (ImageButton) findViewById(R.id.updateHeapAdminButton);
@@ -41,6 +42,26 @@ public class AdminUserQuery extends AppCompatActivity implements DatosConexion {
         listaCola = (ListView) findViewById(R.id.listaColas);
 
         listaCola.setAdapter(new listAdapter(this, 2));
+
+        BT_sacarUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AsyncHttpClient client = new AsyncHttpClient();
+
+                client.get(SOLICITUD_DESENCOLAMIENTO, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        Toast.makeText(getApplicationContext(), "El usuario ha sido desencolado.", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        Toast.makeText(getApplicationContext(), "Ha ocurrido un error al procesar la petición..", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
 
         BT_regUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,8 +112,6 @@ public class AdminUserQuery extends AppCompatActivity implements DatosConexion {
                 startActivity(new Intent(AdminUserQuery.this, AdminQueue.class));
             }
         });
-
-        listaCola.setAdapter(new listAdapter(getApplicationContext(), 0));
 
     }
 }
