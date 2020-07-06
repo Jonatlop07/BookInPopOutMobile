@@ -32,7 +32,7 @@ public class AdminQueue extends AppCompatActivity implements DatosConexion {
     final int hora = c.get(Calendar.HOUR_OF_DAY);
 
     EditText ET_Size, ET_startHour, ET_endHour, ET_interval, ET_capacity;
-    Button BT_CrearCola;
+    Button BT_CrearCola, BT_EliminarCola;
     ImageButton BT_HoraI, BT_HoraF;
 
     @Override
@@ -43,8 +43,7 @@ public class AdminQueue extends AppCompatActivity implements DatosConexion {
         ET_Size = (EditText) findViewById(R.id.queueSize);
         ET_startHour = (EditText) findViewById(R.id.hourStart);
         ET_endHour = (EditText) findViewById(R.id.hourEnd);
-        ET_interval = (EditText) findViewById(R.id.interval);
-        ET_capacity = (EditText) findViewById(R.id.capacity);
+        ET_interval = (EditText) findViewById(R.id.capacity);
         BT_CrearCola = (Button) findViewById(R.id.btnCrearCola);
         BT_HoraI = (ImageButton) findViewById(R.id.AdminQueueTimeS);
         BT_HoraF = (ImageButton) findViewById(R.id.AdminQueueTimeF);
@@ -56,7 +55,6 @@ public class AdminQueue extends AppCompatActivity implements DatosConexion {
                 String startHour = ET_startHour.getText().toString();
                 String endHour = ET_endHour.getText().toString();
                 String intervalLength = ET_interval.getText().toString();
-                String capacity = ET_capacity.getText().toString();
 
                 if (size.isEmpty()) {
                     ET_Size.setError("Ingrese el tamaño de la cola");
@@ -74,17 +72,12 @@ public class AdminQueue extends AppCompatActivity implements DatosConexion {
                     ET_interval.setError("Ingrese los minutos por intervalo");
                     return;
                 }
-                if (capacity.isEmpty()) {
-                    ET_capacity.setError("Ingrese la capacidad máxima por intervalo");
-                    return;
-                }
 
                 RequestParams params = new RequestParams();
                 params.put("tamanioCola", Integer.parseInt(size));
                 params.put("horaInicial", startHour);
                 params.put("horaFinal", endHour);
                 params.put("minutosIntervalo", Integer.parseInt(intervalLength));
-                params.put("capacidadTurno", Integer.parseInt(capacity));
 
                 AsyncHttpClient client = new AsyncHttpClient();
 
@@ -114,6 +107,26 @@ public class AdminQueue extends AppCompatActivity implements DatosConexion {
             @Override
             public void onClick(View view) {
                 obtenerHoraFinal();
+            }
+        });
+
+        BT_EliminarCola.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AsyncHttpClient client = new AsyncHttpClient();
+                RequestParams params = new RequestParams();
+
+                client.post(ELIMINAR_COLA, params, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        Toast.makeText(getApplicationContext(), "La cola ha sido eliminada.", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        Toast.makeText(getApplicationContext(), "No hay una cola que eliminar.", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }

@@ -186,11 +186,3 @@ public class NormalUserRegister extends AppCompatActivity implements DatosConexi
                 });
     }
 }
-
-/*
-INFORMACIÓN: Starting ProtocolHandler ["http-nio-8080"]
-jun 14, 2020 9:38:01 PM org.apache.catalina.startup.Catalina start
-INFORMACIÓN: Server startup in [490] milliseconds
-com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ''db_proyecto'.'usuario' ('id_usuario', 'id_ubicacion' , 'id_documento', 'nombre'' at line 1
-	at sun.reflect.NativeConstructorAccess
- */
