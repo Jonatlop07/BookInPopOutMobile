@@ -48,8 +48,6 @@ public class RegisterActivity extends AppCompatActivity implements DatosConexion
     private ProgressDialog progressDialog;
     private FirebaseUser user;
 
-    AsyncHttpClient client;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -169,7 +167,7 @@ public class RegisterActivity extends AppCompatActivity implements DatosConexion
                                 params.put("id_usuario", user.getUid());
                                 params.put("correo", email);
 
-                                client = new AsyncHttpClient();
+                                AsyncHttpClient client = new AsyncHttpClient();
                                 client.post(REGISTRO_USUARIO_EMPRESARIAL, params, new AsyncHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -180,7 +178,7 @@ public class RegisterActivity extends AppCompatActivity implements DatosConexion
                                     @Override
                                     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                                         user.delete();
-                                        Toast.makeText(getApplicationContext(), "Problema al realizar el registro. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "Problema al realizar el registro. Por favor inténtelo de nuevo. " + error, Toast.LENGTH_LONG).show();
                                         progressDialog.dismiss();
                                     }
                                 });
@@ -206,7 +204,9 @@ public class RegisterActivity extends AppCompatActivity implements DatosConexion
                                 params.put("fecha_nacimiento", nacimiento);
                                 params.put("discapacitado", SW_disc.isChecked());
                                 params.put("correo", email);
-                                client = new AsyncHttpClient();
+
+                                AsyncHttpClient client = new AsyncHttpClient();
+
                                 client.post(REGISTRO_USUARIO_NORMAL, params, new AsyncHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

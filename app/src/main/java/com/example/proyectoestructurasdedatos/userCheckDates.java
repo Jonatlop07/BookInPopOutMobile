@@ -93,6 +93,10 @@ public class userCheckDates extends AppCompatActivity implements DatosConexion {
                                 listadoHoras[i] = hora;
                             }
                             listaCola.setAdapter(new listAdapter(getApplicationContext(), listadoHoras));
+
+                            if (response.length() == 0) {
+                                Toast.makeText(getApplicationContext(), "Usted no ha tenido citas hasta el momento.", Toast.LENGTH_SHORT).show();
+                            }
                         } catch (JSONException e) {
                             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         }

@@ -107,6 +107,10 @@ public class AdminUserQuery extends AppCompatActivity implements DatosConexion {
                             }
 
                             listaCola.setAdapter(new listAdapter(getApplicationContext(), listadoOrdenado));
+
+                            if (response.length() == 0) {
+                                Toast.makeText(getApplicationContext(), "La cola aún no se ha creado o se encuentra vacía.", Toast.LENGTH_LONG).show();
+                            }
                         } catch (JSONException e) {
                             Toast.makeText(getApplicationContext(), "Error al procesar la solicitud. Es posible que la cola no exista o se encuentre vacía.", Toast.LENGTH_LONG).show();
                         }
@@ -137,32 +141,6 @@ public class AdminUserQuery extends AppCompatActivity implements DatosConexion {
 
         user = mAuth.getCurrentUser();
 
-        AsyncHttpClient client = new AsyncHttpClient();
-
-        RequestParams params = new RequestParams();
-
-        params.put("id", user.getUid());
-
-        client.post(INFORMACION_USUARIO, params, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                try {
-                    String nombre = response.getString("nombre");
-                    TV_NombreAdmin.setText(nombre);
-                    progressDialog.dismiss();
-                } catch (JSONException e) {
-                    Toast.makeText(getApplicationContext(), "Problema al obtener datos del usuario.", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                Toast.makeText(getApplicationContext(), "Problema al obtener datos del usuario.", Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
-            }
-        });
+        TV_NombreAdmin.setText(user.getEmail());
     }
 }
