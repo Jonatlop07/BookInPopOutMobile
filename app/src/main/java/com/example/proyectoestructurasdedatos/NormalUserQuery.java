@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +37,8 @@ public class NormalUserQuery extends AppCompatActivity implements DatosConexion 
 
     private FirebaseAuth mAuth;
     FirebaseUser user;
-    CardView BT_CancelarCita, BT_ReservarCita, BT_CitasAntes, BT_Entrar;
+    CardView BT_CancelarCita, BT_ReservarCita, BT_CitasAntes;
+    ImageView IV_Heap;
     TextView ET_Nombre, ET_Documento, ET_Disca, TV_Encolado;
     ImageButton BT_Perfil;
 
@@ -50,13 +52,13 @@ public class NormalUserQuery extends AppCompatActivity implements DatosConexion 
         BT_CancelarCita = (CardView) findViewById(R.id.outButton);
         BT_ReservarCita = (CardView) findViewById(R.id.RegisterDateButton);
         BT_CitasAntes = (CardView) findViewById(R.id.PastButton);
-        BT_Entrar = (CardView) findViewById(R.id.EnterButton);
         BT_Perfil = (ImageButton) findViewById(R.id.ProfileButton);
 
         ET_Nombre = (TextView) findViewById(R.id.NombreUsuario);
         ET_Documento = (TextView) findViewById(R.id.documentoUsuario);
         ET_Disca = (TextView) findViewById(R.id.discapacitadoOnOff);
         TV_Encolado = (TextView) findViewById(R.id.textEncolado);
+        IV_Heap = (ImageView) findViewById(R.id.heapImage);
 
         ET_Disca.setVisibility(View.INVISIBLE);
 
@@ -106,6 +108,7 @@ public class NormalUserQuery extends AppCompatActivity implements DatosConexion 
                                         Log.e("Exception", "File write failed: " + e.toString());
                                     }
                                     TV_Encolado.setText("No estas en la cola");
+                                    IV_Heap.setImageResource(R.drawable.ic_pause);
                                 }
 
                                 @Override
@@ -115,6 +118,7 @@ public class NormalUserQuery extends AppCompatActivity implements DatosConexion 
                             });
                         } else {
                             TV_Encolado.setText("No estas en la cola");
+                            IV_Heap.setImageResource(R.drawable.ic_pause);
                         }
 
                         inputStream.close();
@@ -166,19 +170,14 @@ public class NormalUserQuery extends AppCompatActivity implements DatosConexion 
                 startActivity(intent);
             }
         });
-
-        BT_Entrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Codigo para entrar a la cola
-            }
-        });
     }
 
     @Override
     public void onStart() {
         super.onStart();
         user = mAuth.getCurrentUser();
+
+
 
         RequestParams params = new RequestParams();
         String id = user.getUid();
@@ -221,13 +220,22 @@ public class NormalUserQuery extends AppCompatActivity implements DatosConexion 
                 if ( (receiveString = bufferedReader.readLine()) != null ) {
                     stringBuilder.append(receiveString);
                     TV_Encolado.setText("Estas en la cola. Hora: " + stringBuilder.toString());
+                    IV_Heap.setImageResource(R.drawable.ic_onheap);
                 } else {
                     TV_Encolado.setText("No estas en la cola");
+                    IV_Heap.setImageResource(R.drawable.ic_pause);
                 }
 
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
+            try {
+                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getApplicationContext().openFileOutput("hora.txt", Context.MODE_PRIVATE));
+                outputStreamWriter.write("");
+                outputStreamWriter.close();
+            } catch (IOException ex) {
+                Log.e("login activity", "MetaFile not found: " + e.toString());
+            }
             Log.e("login activity", "File not found: " + e.toString());
         } catch (IOException e) {
             Log.e("login activity", "Can not read file: " + e.toString());
