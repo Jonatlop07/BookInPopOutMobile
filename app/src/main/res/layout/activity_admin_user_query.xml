@@ -55,7 +55,7 @@
         android:autoSizeTextType="uniform"
         android:gravity="center_vertical"
         android:maxLines="2"
-        android:text="nombreUsuario"
+        android:text="Jonny Bonasera"
         android:textColor="@android:color/white"
         app:autoSizeMaxTextSize="24sp"
         app:autoSizeMinTextSize="14sp"
