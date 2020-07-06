@@ -14,6 +14,7 @@ import com.example.proyectoestructurasdedatos.utilidades.DatosConexion;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -68,16 +69,14 @@ public class NormalUserQuery extends AppCompatActivity implements DatosConexion 
 
                 client = new AsyncHttpClient();
 
-                client.post(CANCELAR_CITA, params, new JsonHttpResponseHandler() {
+                client.post(CANCELAR_CITA, params, new AsyncHttpResponseHandler() {
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        super.onSuccess(statusCode, headers, response);
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                         Toast.makeText(getApplicationContext(), "La cita ha sido cancelada con éxito.", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
-                    public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                        super.onFailure(statusCode, headers, responseString, throwable);
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                         Toast.makeText(getApplicationContext(), "Error al procesar la petición. Por favor inténtelo de nuevo.", Toast.LENGTH_SHORT).show();
                     }
                 });
