@@ -1,7 +1,7 @@
 package com.example.proyectoestructurasdedatos.utilidades;
 
 public interface DatosConexion {
-    String MAIN_URL = "http://307c01dc8dd4.ngrok.io/ProyectoEstructurasServlets/";
+    String MAIN_URL = "http://a29aa323bf90.ngrok.io/ProyectoEstructurasServlets/";
     String INICIO_SESION = MAIN_URL + "InicioSesion";
     String REGISTRO_USUARIO_NORMAL =  MAIN_URL + "RegUsuarioNormal";
     String REGISTRO_USUARIO_EMPRESARIAL = MAIN_URL + "RegistroUsuarioEmpresarial";

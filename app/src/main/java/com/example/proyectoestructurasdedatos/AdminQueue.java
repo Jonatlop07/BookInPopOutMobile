@@ -48,6 +48,8 @@ public class AdminQueue extends AppCompatActivity implements DatosConexion {
         BT_HoraI = (ImageButton) findViewById(R.id.AdminQueueTimeS);
         BT_HoraF = (ImageButton) findViewById(R.id.AdminQueueTimeF);
 
+        BT_EliminarCola = (Button) findViewById(R.id.btnBorrarCola);
+
         BT_CrearCola.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

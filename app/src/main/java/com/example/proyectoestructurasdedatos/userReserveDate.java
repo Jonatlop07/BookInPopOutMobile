@@ -1,7 +1,9 @@
 package com.example.proyectoestructurasdedatos;
 
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +23,8 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.Calendar;
 
 import cz.msebera.android.httpclient.Header;
@@ -78,7 +82,14 @@ public class userReserveDate extends AppCompatActivity implements DatosConexion 
                             boolean encolado = response.getBoolean("encolado");
                             if (encolado) {
                                 //Aquí va el código para guardar la hora en el archivo
-
+                                    try {
+                                        OutputStreamWriter outputStreamWriter = new OutputStreamWriter(getApplicationContext().openFileOutput("hora.txt", Context.MODE_PRIVATE));
+                                        outputStreamWriter.write(etHora.getText().toString());
+                                        outputStreamWriter.close();
+                                    }
+                                    catch (IOException e) {
+                                        Log.e("Exception", "File write failed: " + e.toString());
+                                    }
                                 Toast.makeText(getApplicationContext(), "Tu cita ha sido agendada para la hora que indicaste.", Toast.LENGTH_LONG).show();
                             } else {
                                 Toast.makeText(getApplicationContext(), "La hora ingresada se encuentra entre una franja de horario ocupada. Por favor ingrese otra hora o intente de nuevo más tarde.", Toast.LENGTH_LONG).show();
