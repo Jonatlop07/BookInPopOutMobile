@@ -17,59 +17,46 @@
         android:scrollHorizontally="false"
         android:text="@string/DatoNombre"
         android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/textoFecha"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textoAsign"
-        android:layout_width="199dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:ellipsize="none"
-        android:maxLines="100"
-        android:scrollHorizontally="false"
-        android:text="@string/DatoDocumento"
-        android:textSize="16sp"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="@+id/textoPerfil"
-        app:layout_constraintTop_toBottomOf="@+id/textoPerfil" />
-
-    <TextView
         android:id="@+id/textoFecha"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/PosCola"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/unHeapListButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textoPerfil"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/textoPerfil" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="idLayout"
+        app:constraint_referenced_ids="unHeapListButton"
         tools:layout_editor_absoluteX="411dp"
         tools:layout_editor_absoluteY="133dp" />
 
-    <TextView
-        android:id="@+id/idLayout"
+    <ImageButton
+        android:id="@+id/unHeapListButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="232dp"
-        android:layout_marginLeft="232dp"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="179dp"
-        android:layout_marginRight="179dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:tint="@android:color/white"
+        app:layout_constraintEnd_toEndOf="@+id/textoFecha"
+        app:layout_constraintTop_toBottomOf="@+id/textoFecha"
+        app:srcCompat="@drawable/ic_delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
